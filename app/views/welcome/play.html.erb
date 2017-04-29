@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <title>Main Page</title>
+        <!-- application CSS -->
+        <link rel="stylesheet" href="app/asset/stylesheets/application.css">
+        <!-- font-awesome CSS -->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="app/assets/javascipts/application.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.4.0/clipboard.min.js"></script>
+    </head>
+    
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 title">
+                    <a class="btn btn-default left-align" href="/" role="button">
+                        <i class="fa fa-home fa-2x"></i>
+                    </a>
+                    <h1 class="text-center shadow">PLAY SETUP</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-12 text-center subtitle shadow">
+                    <h4>Build the deck, add the players and shuffle</h4>
+                    <h6>New to being a Moderator? <a href="/rules" target="_blank">Click here to read the Rules page</a></h6>
+                    <h6>1. Choose your number of players<br> 2. Enter your players' names<br> 3. Choose the roles for your deck<br>4. Shuffle, Assign, and Play!</h6>
+                    <h6>(The "Deck Total" will help you balance your deck based on the points on each card. Green is good, red is bad. <br>You can only shuffle when you have an equal number of players and cards!)</h6>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-0 col-md-2"></div>
+                <div class="col-sm-12 col-md-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div id="playersDiv" style="display: block;">
+                                <b>Number of Players:</b>
+                                <select id="numberOfPlayers">
+                                    <option value="0">--Select--</option>
+                                    <% for i in 1..72 %>
+                                    <option value="<%= i %>"><%= i %></option>
+                                    <% end %>
+                                </select>
+                                <% roles = Array.new %>
+                                <% for card in @cards %>
+                                    <% for i in 1..card.max %>
+                                        <% hash = { "help" => card.help, "id" => card.id, "name" => card.name, "align" => card.align, "image" => card.image, "points" => card.points, "max" => card.max} %>
+                                        <% roles.push(hash) %>
+                                    <% end %>
+                                <% end %>
+                            </div>
+                            <div id="rolesDiv" style="display: none; padding: 10px 0px 0px;">
+                                <b>Roles for Deck:</b>
+                                <select id="selectedRoles">
+                                    <option>--Select--</option>
+                                    <% r = 0 %>
+                                    <% for role in roles %>
+                                        <option style="display: block" id=<%= r %> help="<%= role["help"] %>" points="<%= role["points"] %>" roleId="<%= role["id"] %>" name="<%= role["name"] %>" image="<%= role["image"] %>" align="<%= role["align"] %>"><%= role["name"]%> (<%= role["align"]%>, <%= role["points"]%>)</option>
+                                        <% r += 1 %>
+                                    <% end %>
+                                </select>
+                            <b>&nbsp &nbsp Deck Total: </b>
+                            <b><span id="pointTotal" style="color: grey">0</span></b>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <br>
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6" id="playerSection">
+                                </div>
+                                <div class="col-sm-6 col-md-6" id="roleSection">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div  id="game-play-div" class="col-md-12 button-center">
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div  id="shuffle-div" class="col-md-12 button-center">
+                                    <button id="shuffle-btn" type="button" class="btn btn-success btn-lg disabled">Shuffle and Assign</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-0 col-md-2"></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-0 col-md-2"></div>
+                <div  id="mod-help-div" class="col-sm-12 col-md-8 text-center" style="display: block;">
+                    <!--TODO: add this section that adds helpful hints for each role added-->
+                    <button type="button" class="btn btn-primary btn-sm" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Mod Help Panel</button>
+                    <div class="collapse" id="collapseExample">
+                        <div class="well" id="modPanel">
+                            Helpful tools for the Moderator!
+                          
+                         <!--   <h3><i class="fa fa-clock-o"></i> Daytime Discussion Timer</h3>-->
+                         <!--   Use this timer to limit the discussion during the day.-->
+                        	<!--<h1><span class="label label-success" id="demo">00:00</span></h1>-->
+                        	<!--<div class="btn-group btn-group-xs" role="group">-->
+                         <!-- 		<button type="button" class="btn btn-default" value="minus">-1 min</button>-->
+                         <!--   	<button type="button" class="btn btn-default" value="plus">+1 min</button>-->
+                         <!--   	<button type="button" class="btn btn-primary" id="startTimer">Start</button> -->
+                        	<!--</div>-->
+                         <!--   <br><br>-->
+                        
+                            <h3><i class="fa fa-moon-o"></i> Night Order for Your Deck</h3>
+                            <div class="row">
+                                <div class="col-xs-0 col-sm-2"></div>
+                                <div class="col-xs-12 col-sm-8">
+                                    <div class="panel panel-default" style="text-align: left">
+                                        <div id="nightRoleSection" class="panel-body">
+                                            <p id="modOrder" >You haven't built/assigned a deck yet!</p>
+                                            <p id="order-9" class="hidden"><b><i class="fa fa-refresh"></i> Doppelganger</b> (First night only)<br></p>
+                                            <p id="order-29" class="hidden"><b><i class="fa fa-meh-o"></i> Hoodlum</b> (First night only)<br></p>
+                                            <p id="order-4" class="hidden"><b><i class="fa fa-user-o"></i> Mason team</b> (First night only)<br></p>
+                                            <p id="order-15" class="hidden"><b><i class="fa fa-eye"></i> Beholder</b> (First night only)<br></p>
+                                            <p id="order-25" class="hidden"><b><i class="fa fa-paw"></i> Pet Wolf</b> (First night only)<br></p>
+                                            <p id="order-21" class="hidden"><b><i class="fa fa-paw"></i> Werewolf team</b> (Excluding Minion and Sorceress)<br></p>
+                                            <p id="order-1" class="hidden"><b><i class="fa fa-search"></i> Seer</b><br></p>
+                                            <p id="order-27" class="hidden"><b><i class="fa fa-search-minus"></i> Sorceress</b><br></p>
+                                            <p id="order-2" class="hidden"><b><i class="fa fa-shield"></i> Bodyguard</b><br></p>
+                                            <p id="order-11" class="hidden"><b><i class="fa fa-medkit"></i> Priest</b> (Only once)<br></p>
+                                            <p id="order-7" class="hidden"><b><i class="fa fa-magic"></i> Witch</b> (Only has two powers to use total)<br></p>
+                                            <p id="order-6" class="hidden"><b><i class="fa fa-microphone-slash"></i> Spellcaster</b><br></p>
+                                            <p id="order-14" class="hidden"><b><i class="fa fa-bed"></i> Insomniac</b> (Last on purpose)</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-0 col-sm-2"></div>
+                            </div>
+                            
+                            <h3><i class="fa fa-exclamation"></i> Role Tips for Your Deck</h3>
+                            
+                            <div class="row">
+                                <div class="col-xs-0 col-sm-2"></div>
+                                <div class="col-xs-12 col-sm-8">
+                                    <div class="panel panel-default" style="text-align: left">
+                                        <div class="panel-body">
+                                            <p id="modTips">You haven't built/assigned a deck yet!</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            	<div class="col-xs-0 col-sm-2"></div>
+                        	</div>
+                    	</div>
+                	</div>
+                </div>
+                <div class="col-sm-0 col-md-2"></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-12 text-center title shadow">
+                    <h2><i class="fa fa-paw fa-lg fa-spin-hover"></i></h2>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

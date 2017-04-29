@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <title>Main Page</title>
+        <!-- application CSS -->
+        <link rel="stylesheet" href="app/asset/stylesheets/application.css">
+        <!-- font-awesome CSS -->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    </head>
+    
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 title">
+                    <a class="btn btn-default left-align" href="/" role="button">
+                        <i class="fa fa-home fa-2x"></i>
+                    </a>
+                    <h1 class="text-center shadow">CARDS</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-12 text-center subtitle shadow">
+                    <h4>Browse all the available roles.</h4>
+                    <h6><i class="fa fa-moon-o"></i> = Takes action during night<br><i class="fa fa-sun-o"></i> = Takes action during day<br><i class="fa fa-bolt"></i> = Takes action only once<br><i class="fa fa-times"></i> = Does not take an action<br></h6>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-0 col-md-3 text-center"></div>
+                <div class="col-sm-12 col-md-6 text-center">
+                    <div class="panel panel-default">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th class="text-center">Role</th>
+                                    <th class="text-center">Alignment</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for card in @cards %>
+                                    <% if card.align == 'Villager' %>
+                                        <tr class="info">
+                                    <% elsif card.align == 'Werewolf' %>
+                                        <tr class="danger">
+                                    <% else %>
+                                        <tr class="warning">
+                                    <% end %>
+                                    <td><i class="fa <%= card.image %> fa-lg"></i></td>
+                                    <td><a href="/cards/<%= card.id %>"><%= card.name %></a></td> 
+                                    <td><%= card.align %></td>
+                                    <% if card.action == 'night' %>
+                                        <td><i class="fa fa-moon-o" title="Night action"></td>
+                                    <% elsif card.action == 'day' %>
+                                        <td><i class="fa fa-sun-o" title="Day action"></td>
+                                    <% elsif card.action == 'once' %>
+                                        <td><i class="fa fa-bolt" title="One action"></td>
+                                    <% else %>
+                                        <td><i class="fa fa-times" title="No action"></td>
+                                    <% end %>
+                                    </tr>
+                                <% end %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-0 col-md-3 text-center"></div>
+            </div>
+            <div class="row">
+            </div>
+        </div>
+    </body>
+</html>
