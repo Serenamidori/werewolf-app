@@ -6,3 +6,4 @@ development:
         pool: 5
         username: ubuntu
         password: password
+        host: /var/run/postgresql
