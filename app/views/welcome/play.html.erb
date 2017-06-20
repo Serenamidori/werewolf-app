@@ -37,8 +37,11 @@
             <div class="row">
                 <div class="col-sm-0 col-md-2"></div>
                 <div class="col-sm-12 col-md-8">
-                    <div class="panel panel-default">
+                    <div class="panel panel-default" id="playerSelectionDiv">
                         <div class="panel-heading">
+                            <div class="panel-title"><a data-toggle="collapse" href="#collapse1">Add your players (+)</a></div>
+                        </div>
+                        <div class="panel-body panel-collapse collapse in" id="collapse1">
                             <div id="playersDiv" style="display: block;">
                                 <b>Number of Players:</b>
                                 <select id="numberOfPlayers">
@@ -47,6 +50,20 @@
                                     <option value="<%= i %>"><%= i %></option>
                                     <% end %>
                                 </select>
+                            </div>
+                            <br>
+                            <div class="row" id="playerSection">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="panel panel-default" id="roleSelectionDiv">
+                        <div class="panel-heading">
+                            <div class="panel-title"><a data-toggle="collapse" href="#collapse2">Build your deck (+)</a></div>
+                        </div>
+                        <div class="panel-body panel-collapse collapse in" id="collapse2">
+                            <div id="rolesDiv" style="display: block;">
+                                <b>Roles for Deck:</b>
                                 <% roles = Array.new %>
                                 <% for card in @cards %>
                                     <% for i in 1..card.max %>
@@ -54,9 +71,6 @@
                                         <% roles.push(hash) %>
                                     <% end %>
                                 <% end %>
-                            </div>
-                            <div id="rolesDiv" style="display: none; padding: 10px 0px 0px;">
-                                <b>Roles for Deck:</b>
                                 <select id="selectedRoles">
                                     <option>--Select--</option>
                                     <% r = 0 %>
@@ -68,48 +82,42 @@
                             <b>&nbsp &nbsp Deck Total: </b>
                             <b><span id="pointTotal" style="color: grey">0</span></b>
                             </div>
-                        </div>
-                        <div class="panel-body">
                             <br>
                             <div class="row">
-                                <div class="col-sm-6 col-md-6" id="playerSection">
-                                </div>
-                                <div class="col-sm-6 col-md-6" id="roleSection">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div  id="game-play-div" class="col-md-12 button-center">
+                                <div class="col-sm-12 col-md-12" id="roleSection">
+                                
                                 </div>
                             </div>
-                            
+                        
+                        </div>
+                    </div>
+                    
+                    <div class="panel panel-default" id="shuffleCardsDiv">
+                        <div class="panel-heading">
+                            <div class="panel-title">Shuffle and assign</div>
+                        </div>
+                        <div class="panel-body">
                             <div class="row">
                                 <div  id="shuffle-div" class="col-md-12 button-center">
                                     <button id="shuffle-btn" type="button" class="btn btn-success btn-lg disabled">Shuffle and Assign</button>
                                 </div>
+                            </div><br>
+                            <div class="row">
+                                <div  id="game-play-div" class="col-md-12 button-center">
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-0 col-md-2"></div>
-            </div>
-            <div class="row">
-                <div class="col-sm-0 col-md-2"></div>
-                <div  id="mod-help-div" class="col-sm-12 col-md-8 text-center" style="display: block;">
+            
+
+                    <div class="panel panel-default" id="mod-help-div">
                     <!--TODO: add this section that adds helpful hints for each role added-->
-                    <button type="button" class="btn btn-primary btn-sm" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Mod Help Panel</button>
-                    <div class="collapse" id="collapseExample">
-                        <div class="well" id="modPanel">
+                    <!--<button type="button" class="btn btn-primary btn-sm" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Mod Help Panel</button>-->
+                        <div class="panel-heading">
+                            <div class="panel-title"><a data-toggle="collapse" href="#collapse3">Moderator Help Panel (+)</a></div>
+                        </div>
+                        <div class="panel-body panel-body panel-collapse collapse button-center" id="collapse3">
                             Helpful tools for the Moderator!
-                          
-                         <!--   <h3><i class="fa fa-clock-o"></i> Daytime Discussion Timer</h3>-->
-                         <!--   Use this timer to limit the discussion during the day.-->
-                        	<!--<h1><span class="label label-success" id="demo">00:00</span></h1>-->
-                        	<!--<div class="btn-group btn-group-xs" role="group">-->
-                         <!-- 		<button type="button" class="btn btn-default" value="minus">-1 min</button>-->
-                         <!--   	<button type="button" class="btn btn-default" value="plus">+1 min</button>-->
-                         <!--   	<button type="button" class="btn btn-primary" id="startTimer">Start</button> -->
-                        	<!--</div>-->
-                         <!--   <br><br>-->
                         
                             <h3><i class="fa fa-moon-o"></i> Night Order for Your Deck</h3>
                             <div class="row">

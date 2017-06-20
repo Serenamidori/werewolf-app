@@ -32,7 +32,7 @@ ready = function() {
             } 
             if (numberOfPlayers > currentPlayers){
                 for(i = currentPlayers+1; i <= numberOfPlayers; i++) {
-                    document.getElementById('playerSection').innerHTML += '<div class="input-group input-group-lg fix-margin-bottom" id="player' + i + '"><span class="input-group-addon">' + i + '.</span><input type="text" class="form-control" id="player' + i + 'name" placeholder="Enter Player Name"></div>';
+                    document.getElementById('playerSection').innerHTML += '<div class="col-sm-6 col-md-6"><div class="input-group input-group-lg fix-margin-bottom" id="player' + i + '"><span class="input-group-addon">' + i + '.</span><input type="text" class="form-control" id="player' + i + 'name" placeholder="Enter Player Name"></div></div>';
                     currentPlayers = numberOfPlayers;
                 }  
             } else if (numberOfPlayers < currentPlayers){
@@ -115,9 +115,17 @@ ready = function() {
         });
     
         function shuffleAndAssign(){
+            // collapse other divs
+            document.getElementById('collapse1').classList.remove("in");
+            document.getElementById('collapse2').classList.remove("in");
+            
+            // eventually need to create a new shuffle function that does not affect the other divs, but only outputs a shuffled deck and players
             shuffle();
             fixNumbers();
             displayPlayers();
+            
+            // after shuffle is done, scroll to the new div
+            document.getElementById('shuffleCardsDiv').scrollIntoView();
         }
         
         // http://jsfiddle.net/bv3MN/1/       
