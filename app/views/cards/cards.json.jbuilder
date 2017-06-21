@@ -6,5 +6,5 @@ json.products @cards do |card|
   json.night card.night
   json.max card.max
   json.url card.url
-  
+  json.desc card.desc
 end

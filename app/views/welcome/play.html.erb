@@ -61,26 +61,45 @@
                         <div class="panel-heading">
                             <div class="panel-title"><a data-toggle="collapse" href="#collapse2">Build your deck (+)</a></div>
                         </div>
+                        <% roles = Array.new %>
+                        <% for card in @cards %>
+                            <% for i in 1..card.max %>
+                                <% hash = { "help" => card.help, "id" => card.id, "name" => card.name, "align" => card.align, "image" => card.image, "points" => card.points, "max" => card.max, "desc" => card.desc} %>
+                                <% roles.push(hash) %>
+                            <% end %>
+                        <% end %>
                         <div class="panel-body panel-collapse collapse in" id="collapse2">
                             <div id="rolesDiv" style="display: block;">
-                                <b>Roles for Deck:</b>
-                                <% roles = Array.new %>
-                                <% for card in @cards %>
-                                    <% for i in 1..card.max %>
-                                        <% hash = { "help" => card.help, "id" => card.id, "name" => card.name, "align" => card.align, "image" => card.image, "points" => card.points, "max" => card.max} %>
-                                        <% roles.push(hash) %>
-                                    <% end %>
-                                <% end %>
-                                <select id="selectedRoles">
-                                    <option>--Select--</option>
-                                    <% r = 0 %>
-                                    <% for role in roles %>
-                                        <option style="display: block" id=<%= r %> help="<%= role["help"] %>" points="<%= role["points"] %>" roleId="<%= role["id"] %>" name="<%= role["name"] %>" image="<%= role["image"] %>" align="<%= role["align"] %>"><%= role["name"]%> (<%= role["align"]%>, <%= role["points"]%>)</option>
-                                        <% r += 1 %>
-                                    <% end %>
-                                </select>
-                            <b>&nbsp &nbsp Deck Total: </b>
+                            <b>Current Deck Point Total: </b>
                             <b><span id="pointTotal" style="color: grey">0</span></b>
+                            </div>
+                            <div class="row" id="roleCardSelect">
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="well pre-scrollable">
+                                        <% r = 0 %>
+                                        <% for role in roles %>
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
+                                            <% if role["align"] == "Villager" %>
+                                                <div id="role-<%= r + 1 %>" class="alert alert-info button-center" role="alert">
+                                            <% end %>
+                                            <% if role["align"] == "Werewolf" %>
+                                                <div id="role-<%= r + 1 %>" class="alert alert-danger button-center" role="alert">
+                                            <% end %>
+                                            <% if role["align"] == "Misc" %>
+                                                <div id="role-<%= r + 1 %>" class="alert alert-warning button-center" role="alert">
+                                            <% end %>
+                                                <i class="fa <%= role["image"] %> fa-lg"></i>
+                                                <b><%= role["name"]%></b><br>
+                                                (<%= role["align"]%>, <%= role["points"]%>)<br>
+                                                <button type="button" class="btn btn-link btn-xs" data-toggle="collapse" data-target="#desc-<%= r %>" aria-expanded="false" aria-controls="#desc-<%= r %>">Card Description</button>
+                                                <button id="add-role-<%= r + 1 %>" help="<%= role["help"] %>" desc="<%= role["desc"] %>" points="<%= role["points"] %>" roleId="<%= role["id"] %>" name="<%= role["name"] %>" image="<%= role["image"] %>" align="<%= role["align"] %>" type="button" class="addRoleCard btn btn-success btn-xs">Add to deck</button>
+                                                <p id="desc-<%= r %>" class="panel-collapse collapse"><%= role["desc"]%></p>
+                                            </div>
+                                        </div>
+                                        <% r += 1 %>
+                                        <% end %>
+                                    </div>    
+                                </div>
                             </div>
                             <br>
                             <div class="row">
@@ -111,8 +130,6 @@
             
 
                     <div class="panel panel-default" id="mod-help-div">
-                    <!--TODO: add this section that adds helpful hints for each role added-->
-                    <!--<button type="button" class="btn btn-primary btn-sm" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Mod Help Panel</button>-->
                         <div class="panel-heading">
                             <div class="panel-title"><a data-toggle="collapse" href="#collapse3">Moderator Help Panel (+)</a></div>
                         </div>
@@ -125,7 +142,7 @@
                                 <div class="col-xs-12 col-sm-8">
                                     <div class="panel panel-default" style="text-align: left">
                                         <div id="nightRoleSection" class="panel-body">
-                                            <p id="modOrder" >You haven't built/assigned a deck yet!</p>
+                                            <p id="modOrder">You haven't built/assigned a deck yet!</p>
                                             <p id="order-9" class="hidden"><b><i class="fa fa-refresh"></i> Doppelganger</b> (First night only)<br></p>
                                             <p id="order-29" class="hidden"><b><i class="fa fa-meh-o"></i> Hoodlum</b> (First night only)<br></p>
                                             <p id="order-4" class="hidden"><b><i class="fa fa-user-o"></i> Mason team</b> (First night only)<br></p>
