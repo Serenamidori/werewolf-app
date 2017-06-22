@@ -25,60 +25,79 @@
                         <i class="fa fa-id-card-o fa-2x"></i>
                     </a>
                 </div>
-            </div>
+            </div><br><br>
             <div class="row">
-                <div class="col-sm-12 col-md-12 title">
-                    <h1 class="text-center shadow"> <%= @card.name %></h1>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12 col-md-12 text-center subtitle shadow">
-                    <h4>(<%= @card.align %>, 
-                    <% if @card.points > 0 %>
-                    +<%= @card.points %>
-                    <% else %>
-                    <%= @card.points %>
+                <div class="col-sm-0 col-md-3 text-center"></div>
+                <div class="col-sm-12 col-md-6">
+                    <% if @card.align == 'Villager' %>
+                    <div class="panel panel-info">
+                    <% elsif @card.align == 'Werewolf'  %>
+                    <div class="panel panel-danger">
+                    <% elsif @card.align == 'Misc' || @card.align == 'Item' %>
+                    <div class="panel panel-warning">
                     <% end %>
-                    <% if @card.points == 1 || @card.points == -1 %>
-                    pt)
-                    <% else %>
-                    pts)
-                    <% end %>
-                    </h4>
+                        <div class="panel-heading">
+                            <h1 class="panel-title text-center"><%= @card.name %></h1>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row text-center">
+                                <h4>(<%= @card.align %>, 
+                                <% if @card.points > 0 %>
+                                +<%= @card.points %>
+                                <% else %>
+                                <%= @card.points %>
+                                <% end %>
+                                <% if @card.points == 1 || @card.points == -1 %>
+                                pt)
+                                <% else %>
+                                pts)
+                                <% end %>
+                                </h4>    
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-sm-12 col-md-4 text-center subtitle">
+                                    <span class="fa-stack fa-5x">
+                                        <% if @card.align == 'Villager' %>
+                                            <i class="fa fa-square fa-stack-2x text-info"></i>  
+                                            <i class="fa <%= @card.image %> fa-stack-1x fa-lg"></i>
+                                        <% elsif @card.align == 'Werewolf'  %>
+                                            <i class="fa fa-square fa-stack-2x text-danger"></i> 
+                                            <i class="fa <%= @card.image %> fa-stack-1x "></i>
+                                        <% elsif @card.align == 'Misc' || @card.align == 'Item' %>
+                                            <i class="fa fa-square fa-stack-2x text-warning"></i> 
+                                            <i class="fa <%= @card.image %> fa-stack-1x "></i>
+                                        <% end %>
+                                    </span>
+                                </div>
+                                <div class="col-sm-12 col-md-8">
+                                    <% if @card.align == 'Villager' %>
+                                    <%= @card.name %> is on the Villager team. They win when they and the other villagers have killed all players on the Werewolf team during the day or night.
+                                    <% elsif @card.align == 'Werewolf'  %>
+                                    <%= @card.name %> is on the Werewolf team. They win when they and the other werewolves have killed all players on the Villager team during the day or night.
+                                    <% elsif @card.align == 'Misc' || @card.align == 'Item' %>
+                                    <%= @card.name %> is on the Miscellaneous team. They can win under specific circumstances, and don't necessarily have to help the Villager or Werewolf team to win.
+                                    <% end %>
+                                    <br><br>
+                                    <h4>Role:</h4> <%= @card.desc %>
+                                    <br><br>
+                                    <h4>Action Rules:</h4> 
+                                    <% if @card.action == 'once' %>
+                                    You can only perform your action once per game.
+                                    <% elsif @card.action == 'none' %>
+                                    You do not perform any action.
+                                    <% else %>
+                                    You perform your action during the <%= @card.action %>.
+                                    <% end %>
+                                </div>
+                            </div>
+                            <br>           
+                        </div>
+                    </div>
                 </div>
+                <div class="col-sm-0 col-md-3 text-center"></div>
             </div>
-            <div class="row">
-                <div class="col-sm-0 col-md-2 text-center"></div>
-                <div class="col-sm-12 col-md-2 text-center subtitle">
-                    <span class="fa-stack fa-5x">
-                    <i class="fa fa-square fa-stack-2x"></i>
-                        <% if @card.align == 'Villager' %>
-                            <i class="fa <%= @card.image %> fa-stack-1x text-info fa-lg"></i>
-                        <% elsif @card.align == 'Werewolf'  %>
-                            <i class="fa <%= @card.image %> fa-stack-1x text-danger"></i>
-                        <% elsif @card.align == 'Misc' || @card.align == 'Item'  %>
-                            <i class="fa <%= @card.image %> fa-stack-1x text-warning"></i>
-                        <% end %>
-                    </span>
-                </div>
-                <div class="col-sm-12 col-md-6 subtitle shadow">
-                    
-                    
-                    <h4>Role:</h4> <%= @card.desc %>
-                    <br><br>
-                    <h4>Action Rules:</h4> 
-                    <% if @card.action == 'once' %>
-                    You can only perform your action once per game.
-                    <% elsif @card.action == 'none' %>
-                    You do not perform any action.
-                    <% else %>
-                    You perform your action during the <%= @card.action %>.
-                    <% end %>
-                    
-                    
-                </div>
-                <div class="col-sm-0 col-md-2 text-center"></div>
-            </div>
+            
             <div class="row">
                 <div class="col-sm-12 col-md-12 text-center title shadow">
                     <h2><i class="fa fa-paw fa-lg fa-spin-hover"></i></h2>
