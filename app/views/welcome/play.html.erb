@@ -23,15 +23,12 @@
                     <a class="btn btn-default left-align" href="/" role="button">
                         <i class="fa fa-home fa-2x"></i>
                     </a>
-                    <h1 class="text-center shadow">PLAY SETUP</h1>
+                    <h1 class="text-center shadow">PLAY</h1>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-12 col-md-12 text-center subtitle shadow">
-                    <h4>Build the deck, add the players and shuffle</h4>
-                    <h6>New to being a Moderator? <a href="/rules" target="_blank">Click here to read the Rules page</a></h6>
-                    <h6>1. Choose your number of players<br> 2. Enter your players' names<br> 3. Choose the roles for your deck<br>4. Shuffle, Assign, and Play!</h6>
-                    <h6>(The "Deck Total" will help you balance your deck based on the points on each card. Green is good, red is bad. <br>You can only shuffle when you have an equal number of players and cards!)</h6>
+                    <h4>New to being a Moderator? <a href="/rules" target="_blank">Click here to read the Rules page</a></h4>
                 </div>
             </div>
             <div class="row">
@@ -39,10 +36,11 @@
                 <div class="col-sm-12 col-md-8">
                     <div class="panel panel-default" id="playerSelectionDiv">
                         <div class="panel-heading">
-                            <div class="panel-title"><a data-toggle="collapse" href="#collapse1">Add your players (+)</a></div>
+                            <div class="panel-title"><a data-toggle="collapse" href="#player-collapse">1. Choose and name your players (+)</a></div>
                         </div>
-                        <div class="panel-body panel-collapse collapse in" id="collapse1">
+                        <div class="panel-body panel-collapse collapse in" id="player-collapse">
                             <div id="playersDiv" style="display: block;">
+                                <h6>Select your number of player and enter their names.</h6>
                                 <b>Number of Players:</b>
                                 <select id="numberOfPlayers">
                                     <option value="0">--Select--</option>
@@ -54,69 +52,113 @@
                             <br>
                             <div class="row" id="playerSection">
                             </div>
+                            <div class="row button-center" id="doneButton">
+                                <button class="btn btn-default" data-toggle="collapse" href="#player-collapse">Done</button>
+                            </div>
                         </div>
                     </div>
                     
                     <div class="panel panel-default" id="roleSelectionDiv">
                         <div class="panel-heading">
-                            <div class="panel-title"><a data-toggle="collapse" href="#collapse2">Build your deck (+)</a></div>
+                            <div class="panel-title"><a data-toggle="collapse" href="#role-collapse">2. Build your deck (+)</a></div>
                         </div>
-                        <% roles = Array.new %>
+                        <% villagerRoles = Array.new %>
+                        <% werewolfRoles = Array.new %>
+                        <% miscRoles = Array.new %>
                         <% for card in @cards %>
                             <% for i in 1..card.max %>
-                                <% hash = { "help" => card.help, "id" => card.id, "name" => card.name, "align" => card.align, "image" => card.image, "points" => card.points, "max" => card.max, "desc" => card.desc} %>
-                                <% roles.push(hash) %>
+                                <% if card.align == "Villager" %>
+                                    <% hash = { "alert" => 'alert-info', "divId" => i, "help" => card.help, "id" => card.id, "name" => card.name, "align" => card.align, "image" => card.image, "points" => card.points, "max" => card.max, "desc" => card.desc} %>
+                                    <% villagerRoles.push(hash) %>
+                                <% end %>
+                                <% if card.align == "Werewolf" %>
+                                    <% hash = { "alert" => 'alert-danger', "divId" => i, "help" => card.help, "id" => card.id, "name" => card.name, "align" => card.align, "image" => card.image, "points" => card.points, "max" => card.max, "desc" => card.desc} %>
+                                    <% werewolfRoles.push(hash) %>
+                                <% end %>
+                                <% if card.align == "Misc" %>
+                                    <% hash = { "alert" => 'alert-warning', "divId" => i, "help" => card.help, "id" => card.id, "name" => card.name, "align" => card.align, "image" => card.image, "points" => card.points, "max" => card.max, "desc" => card.desc} %>
+                                    <% miscRoles.push(hash) %>
+                                <% end %>
                             <% end %>
                         <% end %>
-                        <div class="panel-body panel-collapse collapse in" id="collapse2">
+                        <div class="panel-body panel-collapse collapse in" id="role-collapse">
                             <div id="rolesDiv" style="display: block;">
-                            <b>Current Deck Point Total: </b>
-                            <b><span id="pointTotal" style="color: grey">0</span></b>
+                                <h6>Select which cards you'd like in your deck. The Point Total below helps balance your deck based card points, try to get as close to zero as possible.</h6>
+                                <h4>Current Deck Point Total: <span id="pointTotal" style="color: grey">0</span></b>
                             </div>
                             <div class="row" id="roleCardSelect">
                                 <div class="col-md-12 col-sm-12">
                                     <div class="well pre-scrollable">
-                                        <% r = 0 %>
-                                        <% for role in roles %>
-                                        <div class="col-md-4 col-sm-4 col-xs-12">
-                                            <% if role["align"] == "Villager" %>
-                                                <div id="role-<%= r + 1 %>" class="alert alert-info button-center" role="alert">
-                                            <% end %>
-                                            <% if role["align"] == "Werewolf" %>
-                                                <div id="role-<%= r + 1 %>" class="alert alert-danger button-center" role="alert">
-                                            <% end %>
-                                            <% if role["align"] == "Misc" %>
-                                                <div id="role-<%= r + 1 %>" class="alert alert-warning button-center" role="alert">
-                                            <% end %>
-                                                <i class="fa <%= role["image"] %> fa-lg"></i>
-                                                <b><%= role["name"]%></b><br>
-                                                (<%= role["align"]%>, <%= role["points"]%>)<br>
-                                                <button type="button" class="btn btn-link btn-xs" data-toggle="collapse" data-target="#desc-<%= r %>" aria-expanded="false" aria-controls="#desc-<%= r %>">Card Description</button>
-                                                <button id="add-role-<%= r + 1 %>" help="<%= role["help"] %>" desc="<%= role["desc"] %>" points="<%= role["points"] %>" roleId="<%= role["id"] %>" name="<%= role["name"] %>" image="<%= role["image"] %>" align="<%= role["align"] %>" type="button" class="addRoleCard btn btn-success btn-xs">Add to deck</button>
-                                                <p id="desc-<%= r %>" class="panel-collapse collapse"><%= role["desc"]%></p>
+                                        <button class="btn btn-link button-center" data-toggle="collapse" data-target="#villager-roles">Villager Roles</button>
+                                        <button class="btn btn-link button-center" data-toggle="collapse" data-target="#werewolf-roles">Werewolf Roles</button>
+                                        <button class="btn btn-link button-center" data-toggle="collapse" data-target="#misc-roles">Misc. Roles</button>
+                                        
+                                        <div id="villager-roles" class="collapse">
+                                            <% for villager in villagerRoles %>
+                                            <div class="col-md-4 col-sm-4 col-xs-12">
+                                                <div id="role-<%= villager["divId"] %>" class="alert <%= villager["alert"] %> button-center" role="alert">
+                                                    <i class="fa <%= villager["image"] %> fa-lg"></i>
+                                                    <b><%= villager["name"]%></b><br>
+                                                    (<%= villager["align"]%>, <%= villager["points"]%>)<br>
+                                                    <button type="button" class="btn btn-link btn-xs" data-toggle="collapse" data-target="#desc-<%= villager["divId"] %>" aria-expanded="false" aria-controls="#desc-<%= villager["divId"] %>">Card Description</button>
+                                                    <button id="add-role-<%= villager["divId"] %>" help="<%= villager["help"] %>" desc="<%= villager["desc"] %>" points="<%= villager["points"] %>" roleId="<%= villager["id"] %>" name="<%= villager["name"] %>" image="<%= villager["image"] %>" align="<%= villager["align"] %>" type="button" class="addRoleCard btn btn-success btn-xs">Add to deck</button>
+                                                    <p id="desc-<%= villager["divId"] %>" class="panel-collapse collapse"><%= villager["desc"]%></p>
+                                                </div>
                                             </div>
+                                            <% end %>
                                         </div>
-                                        <% r += 1 %>
-                                        <% end %>
+                                        <div id="werewolf-roles" class="collapse">
+                                            <% for werewolf in werewolfRoles %>
+                                            <div class="col-md-4 col-sm-4 col-xs-12">
+                                                <div id="role-<%= werewolf["divId"] %>" class="alert <%= werewolf["alert"] %> button-center" role="alert">
+                                                    <i class="fa <%= werewolf["image"] %> fa-lg"></i>
+                                                    <b><%= werewolf["name"]%></b><br>
+                                                    (<%= werewolf["align"]%>, <%= werewolf["points"]%>)<br>
+                                                    <button type="button" class="btn btn-link btn-xs" data-toggle="collapse" data-target="#desc-<%= werewolf["divId"] %>" aria-expanded="false" aria-controls="#desc-<%= werewolf["divId"] %>">Card Description</button>
+                                                    <button id="add-role-<%= werewolf["divId"] %>" help="<%= werewolf["help"] %>" desc="<%= werewolf["desc"] %>" points="<%= werewolf["points"] %>" roleId="<%= werewolf["id"] %>" name="<%= werewolf["name"] %>" image="<%= werewolf["image"] %>" align="<%= werewolf["align"] %>" type="button" class="addRoleCard btn btn-success btn-xs">Add to deck</button>
+                                                    <p id="desc-<%= werewolf["divId"] %>" class="panel-collapse collapse"><%= werewolf["desc"]%></p>
+                                                </div>
+                                            </div>
+                                            <% end %>
+                                        </div>
+                                        <div id="misc-roles" class="collapse">
+                                            <% for misc in miscRoles %>
+                                            <div class="col-md-4 col-sm-4 col-xs-12">
+                                                <div id="role-<%= misc["divId"] %>" class="alert <%= misc["alert"] %> button-center" role="alert">
+                                                    <i class="fa <%= misc["image"] %> fa-lg"></i>
+                                                    <b><%= misc["name"]%></b><br>
+                                                    (<%= misc["align"]%>, <%= misc["points"]%>)<br>
+                                                    <button type="button" class="btn btn-link btn-xs" data-toggle="collapse" data-target="#desc-<%= misc["divId"] %>" aria-expanded="false" aria-controls="#desc-<%= misc["divId"] %>">Card Description</button>
+                                                    <button id="add-role-<%= misc["divId"] %>" help="<%= misc["help"] %>" desc="<%= misc["desc"] %>" points="<%= misc["points"] %>" roleId="<%= misc["id"] %>" name="<%= misc["name"] %>" image="<%= misc["image"] %>" align="<%= misc["align"] %>" type="button" class="addRoleCard btn btn-success btn-xs">Add to deck</button>
+                                                    <p id="desc-<%= misc["divId"] %>" class="panel-collapse collapse"><%= misc["desc"]%></p>
+                                                </div>
+                                            </div>
+                                            <% end %>
+                                        </div>        
+
                                     </div>    
                                 </div>
                             </div>
-                            <br>
+                            <h4>Your Deck:</h4>
                             <div class="row">
                                 <div class="col-sm-12 col-md-12" id="roleSection">
-                                
                                 </div>
                             </div>
-                        
+                            <div class="row button-center" id="doneButton">
+                                <button class="btn btn-default" data-toggle="collapse" href="#role-collapse">Done</button>
+                            </div>
                         </div>
                     </div>
                     
                     <div class="panel panel-default" id="shuffleCardsDiv">
                         <div class="panel-heading">
-                            <div class="panel-title">Shuffle and assign</div>
+                            <div class="panel-title">3. Shuffle and assign</div>
                         </div>
                         <div class="panel-body">
                             <div class="row">
+                                <div class="col-md-12">
+                                    <h6>Note: You can only shuffle when you have an equal number of players and cards!</h6>
+                                </div>
                                 <div  id="shuffle-div" class="col-md-12 button-center">
                                     <button id="shuffle-btn" type="button" class="btn btn-success btn-lg disabled">Shuffle and Assign</button>
                                 </div>
@@ -131,9 +173,9 @@
 
                     <div class="panel panel-default" id="mod-help-div">
                         <div class="panel-heading">
-                            <div class="panel-title"><a data-toggle="collapse" href="#collapse3">Moderator Help Panel (+)</a></div>
+                            <div class="panel-title"><a data-toggle="collapse" href="#mod-collapse">Moderator Help Panel</a></div>
                         </div>
-                        <div class="panel-body panel-body panel-collapse collapse button-center" id="collapse3">
+                        <div class="panel-body panel-body panel-collapse collapse button-center" id="mod-collapse">
                             Helpful tools for the Moderator!
                         
                             <h3><i class="fa fa-moon-o"></i> Night Order for Your Deck</h3>

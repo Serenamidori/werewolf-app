@@ -36,7 +36,7 @@ ready = function() {
             } 
             if (numberOfPlayers > currentPlayers){
                 for(i = currentPlayers+1; i <= numberOfPlayers; i++) {
-                    document.getElementById('playerSection').innerHTML += '<div class="col-sm-6 col-md-6"><div class="input-group input-group-lg fix-margin-bottom" id="player' + i + '"><span class="input-group-addon">' + i + '.</span><input type="text" class="form-control" id="player' + i + 'name" placeholder="Enter Player Name"></div></div>';
+                    document.getElementById('playerSection').innerHTML += '<div class="col-sm-6 col-md-6" id="player' + i + '"><div class="input-group input-group-lg fix-margin-bottom"><span class="input-group-addon">' + i + '.</span><input type="text" class="form-control" id="player' + i + 'name" placeholder="Enter Player Name"></div></div>';
                     currentPlayers = numberOfPlayers;
                 }  
             } else if (numberOfPlayers < currentPlayers){
@@ -136,8 +136,8 @@ ready = function() {
          **/
         function shuffleAndAssign(){
             // collapse other divs
-            document.getElementById('collapse1').classList.remove("in");
-            document.getElementById('collapse2').classList.remove("in");
+            document.getElementById('player-collapse').classList.remove("in");
+            document.getElementById('role-collapse').classList.remove("in");
  
             var divs;
             $("#roleSection").each(function(){ 
