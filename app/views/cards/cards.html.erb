@@ -30,47 +30,122 @@
                     <h6><i class="fa fa-moon-o"></i> = Takes action during night<br><i class="fa fa-sun-o"></i> = Takes action during day<br><i class="fa fa-bolt"></i> = Takes action only once<br><i class="fa fa-times"></i> = Does not take an action<br></h6>
                 </div>
             </div>
+            
+            <% villagerRoles = Array.new %>
+            <% werewolfRoles = Array.new %>
+            <% miscRoles = Array.new %>
+            <% for card in @cards %>
+                <% if card.align == "Villager" %>
+                    <% hash = { "id" => card.id, "color" => 'info', "help" => card.help, "id" => card.id, "name" => card.name, "align" => card.align, "image" => card.image, "points" => card.points, "action" => card.action} %>
+                    <% villagerRoles.push(hash) %>
+                <% end %>
+                <% if card.align == "Werewolf" %>
+                    <% hash = { "id" => card.id, "color" => 'danger', "help" => card.help, "id" => card.id, "name" => card.name, "align" => card.align, "image" => card.image, "points" => card.points, "action" => card.action} %>
+                    <% werewolfRoles.push(hash) %>
+                <% end %>
+                <% if card.align == "Misc" %>
+                    <% hash = { "id" => card.id, "color" => 'warning', "help" => card.help, "id" => card.id, "name" => card.name, "align" => card.align, "image" => card.image, "points" => card.points, "action" => card.action} %>
+                    <% miscRoles.push(hash) %>
+                <% end %>
+            <% end %>
+            
+            <!--Panel goes here-->
+            
+            
+                    
+            
             <div class="row">
-                <div class="col-sm-0 col-md-3 text-center"></div>
-                <div class="col-sm-12 col-md-6 text-center">
+                <div class="col-sm-0 col-md-2 text-center"></div>
+                <div class="col-sm-12 col-md-8 text-center">
                     <div class="panel panel-default">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th class="text-center">Role</th>
-                                    <th class="text-center">Alignment</th>
-                                    <th class="text-center">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% for card in @cards %>
-                                    <% if card.align == 'Villager' %>
-                                        <tr class="info">
-                                    <% elsif card.align == 'Werewolf' %>
-                                        <tr class="danger">
-                                    <% else %>
-                                        <tr class="warning">
-                                    <% end %>
-                                    <td><i class="fa <%= card.image %> fa-lg"></i></td>
-                                    <td><a href="/cards/<%= card.id %>"><%= card.name %></a></td> 
-                                    <td><%= card.align %></td>
-                                    <% if card.action == 'night' %>
-                                        <td><i class="fa fa-moon-o" title="Night action"></td>
-                                    <% elsif card.action == 'day' %>
-                                        <td><i class="fa fa-sun-o" title="Day action"></td>
-                                    <% elsif card.action == 'once' %>
-                                        <td><i class="fa fa-bolt" title="One action"></td>
-                                    <% else %>
-                                        <td><i class="fa fa-times" title="No action"></td>
-                                    <% end %>
-                                    </tr>
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                Toggle view:
+                                <button class="btn btn-link button-center" data-toggle="collapse" data-target="#villager-roles">Villager Roles</button>
+                                <button class="btn btn-link button-center" data-toggle="collapse" data-target="#werewolf-roles">Werewolf Roles</button>
+                                <button class="btn btn-link button-center" data-toggle="collapse" data-target="#misc-roles">Misc. Roles</button>
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <div id="villager-roles" class="collapse in">
+                                <% for villager in villagerRoles %>
+                                <div class="col-md-4 col-sm-6 col-xs-12">
+                                    <div class="alert alert-<%= villager["color"] %> button-center" role="alert">
+                                        <a class="btn btn-link" href="/cards/<%= villager["id"] %>"><b><i class="fa <%= villager["image"] %> fa-lg"></i> <%= villager["name"]%></b></a><br>
+                                        (<%= villager["align"]%>,
+                                        <% if villager["points"] > 0 %>
+                                            +<%= villager["points"]%>,
+                                        <% else %>
+                                            <%= villager["points"]%>,
+                                        <% end %> 
+                                        <% if villager["action"] == 'night' %>
+                                            <i class="fa fa-moon-o" title="Night action"></i>)
+                                        <% elsif villager["action"] == 'day' %>
+                                            <i class="fa fa-sun-o" title="Day action"></i>)
+                                        <% elsif villager["action"] == 'once' %>
+                                            <i class="fa fa-bolt" title="One action"></i>)
+                                        <% else %>
+                                            <i class="fa fa-times" title="No action"></i>)
+                                        <% end %>
+                                        <br>
+                                    </div>
+                                </div>
                                 <% end %>
-                            </tbody>
-                        </table>
+                            </div>
+                            <div id="werewolf-roles" class="collapse in">
+                                <% for werewolf in werewolfRoles %>
+                                <div class="col-md-4 col-sm-6 col-xs-12">
+                                    <div class="alert alert-<%= werewolf["color"] %> button-center" role="alert">
+                                        <a class="btn btn-link" href="/cards/<%= werewolf["id"] %>"><b><i class="fa <%= werewolf["image"] %> fa-lg"></i> <%= werewolf["name"]%></b></a><br>
+                                        (<%= werewolf["align"]%>, 
+                                        <% if werewolf["points"] > 0 %>
+                                            +<%= werewolf["points"]%>,
+                                        <% else %>
+                                            <%= werewolf["points"]%>,
+                                        <% end %> 
+                                        <% if werewolf["action"] == 'night' %>
+                                            <i class="fa fa-moon-o" title="Night action"></i>)
+                                        <% elsif werewolf["action"] == 'day' %>
+                                            <i class="fa fa-sun-o" title="Day action"></i>)
+                                        <% elsif werewolf["action"] == 'once' %>
+                                            <i class="fa fa-bolt" title="One action"></i>)
+                                        <% else %>
+                                            <i class="fa fa-times" title="No action"></i>)
+                                        <% end %>
+                                        <br>
+                                    </div>
+                                </div>
+                                <% end %>
+                            </div>
+                            <div id="misc-roles" class="collapse in">
+                                <% for misc in miscRoles %>
+                                <div class="col-md-4 col-sm-6 col-xs-12">
+                                    <div class="alert alert-<%= misc["color"] %> button-center" role="alert">
+                                        <a class="btn btn-link" href="/cards/<%= misc["id"] %>"><b><i class="fa <%= misc["image"] %> fa-lg"></i> <%= misc["name"]%></b></a><br>
+                                        (<%= misc["align"]%>, 
+                                        <% if misc["points"] > 0 %>
+                                            +<%= misc["points"]%>,
+                                        <% else %>
+                                            <%= misc["points"]%>,
+                                        <% end %>
+                                        <% if misc["action"] == 'night' %>
+                                            <i class="fa fa-moon-o" title="Night action"></i>
+                                        <% elsif misc["action"] == 'day' %>
+                                            <i class="fa fa-sun-o" title="Day action"></i>)
+                                        <% elsif misc["action"] == 'once' %>
+                                            <i class="fa fa-bolt" title="One action"></i>)
+                                        <% else %>
+                                            <i class="fa fa-times" title="No action"></i>)
+                                        <% end %>
+                                        <br>
+                                    </div>
+                                </div>
+                                <% end %>
+                            </div>        
+                        </div>
                     </div>
                 </div>
-                <div class="col-sm-0 col-md-3 text-center"></div>
+                <div class="col-sm-0 col-md-2 text-center"></div>
             </div>
             <div class="row">
             </div>

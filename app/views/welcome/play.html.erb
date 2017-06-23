@@ -83,16 +83,16 @@
                         <% end %>
                         <div class="panel-body panel-collapse collapse in" id="role-collapse">
                             <div id="rolesDiv" style="display: block;">
-                                <h6>Select which cards you'd like in your deck. The Point Total below helps balance your deck based card points, try to get as close to zero as possible.</h6>
-                                <h4>Current Deck Point Total: <span id="pointTotal" style="color: grey">0</span></b>
+                                <h6>Select which cards you'd like in your deck. The Point Total below helps balance your deck based card points, try to get as close to zero as possible.</h6></h6>
+                                <h4>Current Deck Point Total: <span id="pointTotal" style="color: grey">0</span></b><br><br>
+                                Toggle card view:
+                                <button class="btn btn-link button-center" data-toggle="collapse" data-target="#villager-roles">Villager Roles</button>
+                                <button class="btn btn-link button-center" data-toggle="collapse" data-target="#werewolf-roles">Werewolf Roles</button>
+                                <button class="btn btn-link button-center" data-toggle="collapse" data-target="#misc-roles">Misc. Roles</button>
                             </div>
                             <div class="row" id="roleCardSelect">
                                 <div class="col-md-12 col-sm-12">
                                     <div class="well pre-scrollable">
-                                        <button class="btn btn-link button-center" data-toggle="collapse" data-target="#villager-roles">Villager Roles</button>
-                                        <button class="btn btn-link button-center" data-toggle="collapse" data-target="#werewolf-roles">Werewolf Roles</button>
-                                        <button class="btn btn-link button-center" data-toggle="collapse" data-target="#misc-roles">Misc. Roles</button>
-                                        
                                         <div id="villager-roles" class="collapse">
                                             <% for villager in villagerRoles %>
                                             <div class="col-md-4 col-sm-4 col-xs-12">
