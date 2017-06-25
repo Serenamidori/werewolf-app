@@ -40,7 +40,7 @@
                         </div>
                         <div class="panel-body panel-collapse collapse in" id="player-collapse">
                             <div id="playersDiv" style="display: block;">
-                                <h6>Select your number of player and enter their names.</h6>
+                                <h6>Select your number of player and enter their names. Unnamed players will be numbered instead.</h6>
                                 <b>Number of Players:</b>
                                 <select id="numberOfPlayers">
                                     <option value="0">--Select--</option>
@@ -53,7 +53,7 @@
                             <div class="row" id="playerSection">
                             </div>
                             <div class="row button-center" id="doneButton">
-                                <button class="btn btn-default" data-toggle="collapse" href="#player-collapse">Done</button>
+                                <button class="btn btn-default" data-toggle="collapse" href="#player-collapse">Next</button>
                             </div>
                         </div>
                     </div>
@@ -65,20 +65,22 @@
                         <% villagerRoles = Array.new %>
                         <% werewolfRoles = Array.new %>
                         <% miscRoles = Array.new %>
+                        <% j = 1 %>
                         <% for card in @cards %>
                             <% for i in 1..card.max %>
                                 <% if card.align == "Villager" %>
-                                    <% hash = { "alert" => 'alert-info', "divId" => i, "help" => card.help, "id" => card.id, "name" => card.name, "align" => card.align, "image" => card.image, "points" => card.points, "max" => card.max, "desc" => card.desc} %>
+                                    <% hash = { "alert" => 'alert-info', "divId" => j, "help" => card.help, "id" => card.id, "name" => card.name, "align" => card.align, "image" => card.image, "points" => card.points, "max" => card.max, "desc" => card.desc} %>
                                     <% villagerRoles.push(hash) %>
                                 <% end %>
                                 <% if card.align == "Werewolf" %>
-                                    <% hash = { "alert" => 'alert-danger', "divId" => i, "help" => card.help, "id" => card.id, "name" => card.name, "align" => card.align, "image" => card.image, "points" => card.points, "max" => card.max, "desc" => card.desc} %>
+                                    <% hash = { "alert" => 'alert-danger', "divId" => j, "help" => card.help, "id" => card.id, "name" => card.name, "align" => card.align, "image" => card.image, "points" => card.points, "max" => card.max, "desc" => card.desc} %>
                                     <% werewolfRoles.push(hash) %>
                                 <% end %>
                                 <% if card.align == "Misc" %>
-                                    <% hash = { "alert" => 'alert-warning', "divId" => i, "help" => card.help, "id" => card.id, "name" => card.name, "align" => card.align, "image" => card.image, "points" => card.points, "max" => card.max, "desc" => card.desc} %>
+                                    <% hash = { "alert" => 'alert-warning', "divId" => j, "help" => card.help, "id" => card.id, "name" => card.name, "align" => card.align, "image" => card.image, "points" => card.points, "max" => card.max, "desc" => card.desc} %>
                                     <% miscRoles.push(hash) %>
                                 <% end %>
+                                <% j += 1 %>
                             <% end %>
                         <% end %>
                         <div class="panel-body panel-collapse collapse in" id="role-collapse">
@@ -145,7 +147,7 @@
                                 </div>
                             </div>
                             <div class="row button-center" id="doneButton">
-                                <button class="btn btn-default" data-toggle="collapse" href="#role-collapse">Done</button>
+                                <button class="btn btn-default" data-toggle="collapse" href="#role-collapse">Next</button>
                             </div>
                         </div>
                     </div>

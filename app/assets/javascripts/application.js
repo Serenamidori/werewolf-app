@@ -153,7 +153,6 @@ ready = function() {
                   divs[j] = tempi;
                  }
             }); 
-            console.log(divs);
 
             // Reset the Night Roles section to be all hidden
             document.getElementById('game-play-div').innerHTML = "";
@@ -175,6 +174,9 @@ ready = function() {
                 var number = i + 1;
                 var playerId = "player" + number + "name";
                 var playerName = document.getElementById(playerId).value;
+                if(document.getElementById(playerId).value == "") {
+                    playerName = "Player #" + number;
+                }
                 document.getElementById('game-play-div').innerHTML += '<div id="rolePlayer' + i + '"><div class="alert alert-success" role="alert"></i> <h4>' + playerName + ' the ' + roleName + '</h4> <div class="input-group" id="copyPlayerRole' + i + '"><input class="form-control" id="copyRole' + i + '" value="' + playerName + ', you are a ' + roleName + ' - https://ultimate-werewolf-helper-serenamidori.c9users.io/cards/' + roleId + '" readonly ><span class="input-group-btn"><button class="btn btn-default copy-button" data-clipboard-target="#copyRole' + i + '"><i class="fa fa-clipboard"></i></button></span></div></div></div>';
                 
                 var dupe = false;
