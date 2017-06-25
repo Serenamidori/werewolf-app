@@ -23,23 +23,24 @@
                     <a class="btn btn-default left-align" href="/" role="button">
                         <i class="fa fa-home fa-2x"></i>
                     </a>
-                    <h1 class="text-center shadow">PLAY SETUP</h1>
+                    <h1 class="text-center shadow">PLAY</h1>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-12 col-md-12 text-center subtitle shadow">
-                    <h4>Build the deck, add the players and shuffle</h4>
-                    <h6>New to being a Moderator? <a href="/rules" target="_blank">Click here to read the Rules page</a></h6>
-                    <h6>1. Choose your number of players<br> 2. Enter your players' names<br> 3. Choose the roles for your deck<br>4. Shuffle, Assign, and Play!</h6>
-                    <h6>(The "Deck Total" will help you balance your deck based on the points on each card. Green is good, red is bad. <br>You can only shuffle when you have an equal number of players and cards!)</h6>
+                    <h4>New to being a Moderator? <a href="/rules" target="_blank">Click here to read the Rules page</a></h4>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-0 col-md-2"></div>
                 <div class="col-sm-12 col-md-8">
-                    <div class="panel panel-default">
+                    <div class="panel panel-default" id="playerSelectionDiv">
                         <div class="panel-heading">
+                            <div class="panel-title"><a data-toggle="collapse" href="#player-collapse">1. Choose and name your players (+)</a></div>
+                        </div>
+                        <div class="panel-body panel-collapse collapse in" id="player-collapse">
                             <div id="playersDiv" style="display: block;">
+                                <h6>Select your number of player and enter their names. Unnamed players will be numbered instead.</h6>
                                 <b>Number of Players:</b>
                                 <select id="numberOfPlayers">
                                     <option value="0">--Select--</option>
@@ -47,69 +48,137 @@
                                     <option value="<%= i %>"><%= i %></option>
                                     <% end %>
                                 </select>
-                                <% roles = Array.new %>
-                                <% for card in @cards %>
-                                    <% for i in 1..card.max %>
-                                        <% hash = { "help" => card.help, "id" => card.id, "name" => card.name, "align" => card.align, "image" => card.image, "points" => card.points, "max" => card.max} %>
-                                        <% roles.push(hash) %>
-                                    <% end %>
-                                <% end %>
                             </div>
-                            <div id="rolesDiv" style="display: none; padding: 10px 0px 0px;">
-                                <b>Roles for Deck:</b>
-                                <select id="selectedRoles">
-                                    <option>--Select--</option>
-                                    <% r = 0 %>
-                                    <% for role in roles %>
-                                        <option style="display: block" id=<%= r %> help="<%= role["help"] %>" points="<%= role["points"] %>" roleId="<%= role["id"] %>" name="<%= role["name"] %>" image="<%= role["image"] %>" align="<%= role["align"] %>"><%= role["name"]%> (<%= role["align"]%>, <%= role["points"]%>)</option>
-                                        <% r += 1 %>
-                                    <% end %>
-                                </select>
-                            <b>&nbsp &nbsp Deck Total: </b>
-                            <b><span id="pointTotal" style="color: grey">0</span></b>
+                            <br>
+                            <div class="row" id="playerSection">
+                            </div>
+                            <div class="row button-center" id="doneButton">
+                                <button class="btn btn-default" data-toggle="collapse" href="#player-collapse">Next</button>
                             </div>
                         </div>
-                        <div class="panel-body">
-                            <br>
-                            <div class="row">
-                                <div class="col-sm-6 col-md-6" id="playerSection">
-                                </div>
-                                <div class="col-sm-6 col-md-6" id="roleSection">
+                    </div>
+                    
+                    <div class="panel panel-default" id="roleSelectionDiv">
+                        <div class="panel-heading">
+                            <div class="panel-title"><a data-toggle="collapse" href="#role-collapse">2. Build your deck (+)</a></div>
+                        </div>
+                        <% villagerRoles = Array.new %>
+                        <% werewolfRoles = Array.new %>
+                        <% miscRoles = Array.new %>
+                        <% j = 1 %>
+                        <% for card in @cards %>
+                            <% for i in 1..card.max %>
+                                <% if card.align == "Villager" %>
+                                    <% hash = { "alert" => 'alert-info', "divId" => j, "help" => card.help, "id" => card.id, "name" => card.name, "align" => card.align, "image" => card.image, "points" => card.points, "max" => card.max, "desc" => card.desc} %>
+                                    <% villagerRoles.push(hash) %>
+                                <% end %>
+                                <% if card.align == "Werewolf" %>
+                                    <% hash = { "alert" => 'alert-danger', "divId" => j, "help" => card.help, "id" => card.id, "name" => card.name, "align" => card.align, "image" => card.image, "points" => card.points, "max" => card.max, "desc" => card.desc} %>
+                                    <% werewolfRoles.push(hash) %>
+                                <% end %>
+                                <% if card.align == "Misc" %>
+                                    <% hash = { "alert" => 'alert-warning', "divId" => j, "help" => card.help, "id" => card.id, "name" => card.name, "align" => card.align, "image" => card.image, "points" => card.points, "max" => card.max, "desc" => card.desc} %>
+                                    <% miscRoles.push(hash) %>
+                                <% end %>
+                                <% j += 1 %>
+                            <% end %>
+                        <% end %>
+                        <div class="panel-body panel-collapse collapse in" id="role-collapse">
+                            <div id="rolesDiv" style="display: block;">
+                                <h6>Select which cards you'd like in your deck. The Point Total below helps balance your deck based card points, try to get as close to zero as possible.</h6></h6>
+                                <h4>Current Deck Point Total: <span id="pointTotal" style="color: grey">0</span></b><br><br>
+                                Toggle card view:
+                                <button class="btn btn-link button-center" data-toggle="collapse" data-target="#villager-roles">Villager Roles</button>
+                                <button class="btn btn-link button-center" data-toggle="collapse" data-target="#werewolf-roles">Werewolf Roles</button>
+                                <button class="btn btn-link button-center" data-toggle="collapse" data-target="#misc-roles">Misc. Roles</button>
+                            </div>
+                            <div class="row" id="roleCardSelect">
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="well pre-scrollable">
+                                        <div id="villager-roles" class="collapse">
+                                            <% for villager in villagerRoles %>
+                                            <div class="col-md-4 col-sm-4 col-xs-12">
+                                                <div id="role-<%= villager["divId"] %>" class="alert <%= villager["alert"] %> button-center" role="alert">
+                                                    <i class="fa <%= villager["image"] %> fa-lg"></i>
+                                                    <b><%= villager["name"]%></b><br>
+                                                    (<%= villager["align"]%>, <%= villager["points"]%>)<br>
+                                                    <button type="button" class="btn btn-link btn-xs" data-toggle="collapse" data-target="#desc-<%= villager["divId"] %>" aria-expanded="false" aria-controls="#desc-<%= villager["divId"] %>">Card Description</button>
+                                                    <button id="add-role-<%= villager["divId"] %>" help="<%= villager["help"] %>" desc="<%= villager["desc"] %>" points="<%= villager["points"] %>" roleId="<%= villager["id"] %>" name="<%= villager["name"] %>" image="<%= villager["image"] %>" align="<%= villager["align"] %>" type="button" class="addRoleCard btn btn-success btn-xs">Add to deck</button>
+                                                    <p id="desc-<%= villager["divId"] %>" class="panel-collapse collapse"><%= villager["desc"]%></p>
+                                                </div>
+                                            </div>
+                                            <% end %>
+                                        </div>
+                                        <div id="werewolf-roles" class="collapse">
+                                            <% for werewolf in werewolfRoles %>
+                                            <div class="col-md-4 col-sm-4 col-xs-12">
+                                                <div id="role-<%= werewolf["divId"] %>" class="alert <%= werewolf["alert"] %> button-center" role="alert">
+                                                    <i class="fa <%= werewolf["image"] %> fa-lg"></i>
+                                                    <b><%= werewolf["name"]%></b><br>
+                                                    (<%= werewolf["align"]%>, <%= werewolf["points"]%>)<br>
+                                                    <button type="button" class="btn btn-link btn-xs" data-toggle="collapse" data-target="#desc-<%= werewolf["divId"] %>" aria-expanded="false" aria-controls="#desc-<%= werewolf["divId"] %>">Card Description</button>
+                                                    <button id="add-role-<%= werewolf["divId"] %>" help="<%= werewolf["help"] %>" desc="<%= werewolf["desc"] %>" points="<%= werewolf["points"] %>" roleId="<%= werewolf["id"] %>" name="<%= werewolf["name"] %>" image="<%= werewolf["image"] %>" align="<%= werewolf["align"] %>" type="button" class="addRoleCard btn btn-success btn-xs">Add to deck</button>
+                                                    <p id="desc-<%= werewolf["divId"] %>" class="panel-collapse collapse"><%= werewolf["desc"]%></p>
+                                                </div>
+                                            </div>
+                                            <% end %>
+                                        </div>
+                                        <div id="misc-roles" class="collapse">
+                                            <% for misc in miscRoles %>
+                                            <div class="col-md-4 col-sm-4 col-xs-12">
+                                                <div id="role-<%= misc["divId"] %>" class="alert <%= misc["alert"] %> button-center" role="alert">
+                                                    <i class="fa <%= misc["image"] %> fa-lg"></i>
+                                                    <b><%= misc["name"]%></b><br>
+                                                    (<%= misc["align"]%>, <%= misc["points"]%>)<br>
+                                                    <button type="button" class="btn btn-link btn-xs" data-toggle="collapse" data-target="#desc-<%= misc["divId"] %>" aria-expanded="false" aria-controls="#desc-<%= misc["divId"] %>">Card Description</button>
+                                                    <button id="add-role-<%= misc["divId"] %>" help="<%= misc["help"] %>" desc="<%= misc["desc"] %>" points="<%= misc["points"] %>" roleId="<%= misc["id"] %>" name="<%= misc["name"] %>" image="<%= misc["image"] %>" align="<%= misc["align"] %>" type="button" class="addRoleCard btn btn-success btn-xs">Add to deck</button>
+                                                    <p id="desc-<%= misc["divId"] %>" class="panel-collapse collapse"><%= misc["desc"]%></p>
+                                                </div>
+                                            </div>
+                                            <% end %>
+                                        </div>        
+
+                                    </div>    
                                 </div>
                             </div>
+                            <h4>Your Deck:</h4>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12" id="roleSection">
+                                </div>
+                            </div>
+                            <div class="row button-center" id="doneButton">
+                                <button class="btn btn-default" data-toggle="collapse" href="#role-collapse">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="panel panel-default" id="shuffleCardsDiv">
+                        <div class="panel-heading">
+                            <div class="panel-title">3. Shuffle and assign</div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h6>Note: You can only shuffle when you have an equal number of players and cards!</h6>
+                                </div>
+                                <div  id="shuffle-div" class="col-md-12 button-center">
+                                    <button id="shuffle-btn" type="button" class="btn btn-success btn-lg disabled">Shuffle and Assign</button>
+                                </div>
+                            </div><br>
                             <div class="row">
                                 <div  id="game-play-div" class="col-md-12 button-center">
                                 </div>
                             </div>
-                            
-                            <div class="row">
-                                <div  id="shuffle-div" class="col-md-12 button-center">
-                                    <button id="shuffle-btn" type="button" class="btn btn-success btn-lg disabled">Shuffle and Assign</button>
-                                </div>
-                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-0 col-md-2"></div>
-            </div>
-            <div class="row">
-                <div class="col-sm-0 col-md-2"></div>
-                <div  id="mod-help-div" class="col-sm-12 col-md-8 text-center" style="display: block;">
-                    <!--TODO: add this section that adds helpful hints for each role added-->
-                    <button type="button" class="btn btn-primary btn-sm" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Mod Help Panel</button>
-                    <div class="collapse" id="collapseExample">
-                        <div class="well" id="modPanel">
+            
+
+                    <div class="panel panel-default" id="mod-help-div">
+                        <div class="panel-heading">
+                            <div class="panel-title"><a data-toggle="collapse" href="#mod-collapse">Moderator Help Panel</a></div>
+                        </div>
+                        <div class="panel-body panel-body panel-collapse collapse button-center" id="mod-collapse">
                             Helpful tools for the Moderator!
-                          
-                         <!--   <h3><i class="fa fa-clock-o"></i> Daytime Discussion Timer</h3>-->
-                         <!--   Use this timer to limit the discussion during the day.-->
-                        	<!--<h1><span class="label label-success" id="demo">00:00</span></h1>-->
-                        	<!--<div class="btn-group btn-group-xs" role="group">-->
-                         <!-- 		<button type="button" class="btn btn-default" value="minus">-1 min</button>-->
-                         <!--   	<button type="button" class="btn btn-default" value="plus">+1 min</button>-->
-                         <!--   	<button type="button" class="btn btn-primary" id="startTimer">Start</button> -->
-                        	<!--</div>-->
-                         <!--   <br><br>-->
                         
                             <h3><i class="fa fa-moon-o"></i> Night Order for Your Deck</h3>
                             <div class="row">
@@ -117,7 +186,7 @@
                                 <div class="col-xs-12 col-sm-8">
                                     <div class="panel panel-default" style="text-align: left">
                                         <div id="nightRoleSection" class="panel-body">
-                                            <p id="modOrder" >You haven't built/assigned a deck yet!</p>
+                                            <p id="modOrder">You haven't built/assigned a deck yet!</p>
                                             <p id="order-9" class="hidden"><b><i class="fa fa-refresh"></i> Doppelganger</b> (First night only)<br></p>
                                             <p id="order-29" class="hidden"><b><i class="fa fa-meh-o"></i> Hoodlum</b> (First night only)<br></p>
                                             <p id="order-4" class="hidden"><b><i class="fa fa-user-o"></i> Mason team</b> (First night only)<br></p>
