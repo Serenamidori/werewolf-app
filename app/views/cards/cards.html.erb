@@ -36,15 +36,15 @@
             <% miscRoles = Array.new %>
             <% for card in @cards %>
                 <% if card.align == "Villager" %>
-                    <% hash = { "id" => card.id, "color" => 'info', "help" => card.help, "id" => card.id, "name" => card.name, "align" => card.align, "image" => card.image, "points" => card.points, "action" => card.action} %>
+                    <% hash = { "id" => card.id, "color" => 'info', "help" => card.help, "id" => card.id, "name" => card.name, "align" => card.align, "icon" => card.icon, "points" => card.points, "action" => card.action} %>
                     <% villagerRoles.push(hash) %>
                 <% end %>
                 <% if card.align == "Werewolf" %>
-                    <% hash = { "id" => card.id, "color" => 'danger', "help" => card.help, "id" => card.id, "name" => card.name, "align" => card.align, "image" => card.image, "points" => card.points, "action" => card.action} %>
+                    <% hash = { "id" => card.id, "color" => 'danger', "help" => card.help, "id" => card.id, "name" => card.name, "align" => card.align, "icon" => card.icon, "points" => card.points, "action" => card.action} %>
                     <% werewolfRoles.push(hash) %>
                 <% end %>
                 <% if card.align == "Misc" %>
-                    <% hash = { "id" => card.id, "color" => 'warning', "help" => card.help, "id" => card.id, "name" => card.name, "align" => card.align, "image" => card.image, "points" => card.points, "action" => card.action} %>
+                    <% hash = { "id" => card.id, "color" => 'warning', "help" => card.help, "id" => card.id, "name" => card.name, "align" => card.align, "icon" => card.icon, "points" => card.points, "action" => card.action} %>
                     <% miscRoles.push(hash) %>
                 <% end %>
             <% end %>
@@ -71,7 +71,7 @@
                                 <% for villager in villagerRoles %>
                                 <div class="col-md-4 col-sm-6 col-xs-12">
                                     <div class="alert alert-<%= villager["color"] %> button-center" role="alert">
-                                        <a class="btn btn-link" href="/cards/<%= villager["id"] %>"><b><i class="fa <%= villager["image"] %> fa-lg"></i> <%= villager["name"]%></b></a><br>
+                                        <a class="btn btn-link" href="/cards/<%= villager["id"] %>"><b><i class="fa <%= villager["icon"] %> fa-lg"></i> <%= villager["name"]%></b></a><br>
                                         (<%= villager["align"]%>,
                                         <% if villager["points"] > 0 %>
                                             +<%= villager["points"]%>,
@@ -96,7 +96,7 @@
                                 <% for werewolf in werewolfRoles %>
                                 <div class="col-md-4 col-sm-6 col-xs-12">
                                     <div class="alert alert-<%= werewolf["color"] %> button-center" role="alert">
-                                        <a class="btn btn-link" href="/cards/<%= werewolf["id"] %>"><b><i class="fa <%= werewolf["image"] %> fa-lg"></i> <%= werewolf["name"]%></b></a><br>
+                                        <a class="btn btn-link" href="/cards/<%= werewolf["id"] %>"><b><i class="fa <%= werewolf["icon"] %> fa-lg"></i> <%= werewolf["name"]%></b></a><br>
                                         (<%= werewolf["align"]%>, 
                                         <% if werewolf["points"] > 0 %>
                                             +<%= werewolf["points"]%>,
@@ -121,7 +121,7 @@
                                 <% for misc in miscRoles %>
                                 <div class="col-md-4 col-sm-6 col-xs-12">
                                     <div class="alert alert-<%= misc["color"] %> button-center" role="alert">
-                                        <a class="btn btn-link" href="/cards/<%= misc["id"] %>"><b><i class="fa <%= misc["image"] %> fa-lg"></i> <%= misc["name"]%></b></a><br>
+                                        <a class="btn btn-link" href="/cards/<%= misc["id"] %>"><b><i class="fa <%= misc["icon"] %> fa-lg"></i> <%= misc["name"]%></b></a><br>
                                         (<%= misc["align"]%>, 
                                         <% if misc["points"] > 0 %>
                                             +<%= misc["points"]%>,

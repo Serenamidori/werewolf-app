@@ -27,8 +27,8 @@
                 </div>
             </div><br><br>
             <div class="row">
-                <div class="col-sm-0 col-md-3 text-center"></div>
-                <div class="col-sm-12 col-md-6">
+                <div class="col-sm-0 col-md-2 text-center"></div>
+                <div class="col-sm-12 col-md-8">
                     <% if @card.align == 'Villager' %>
                     <div class="panel panel-info">
                     <% elsif @card.align == 'Werewolf'  %>
@@ -37,40 +37,43 @@
                     <div class="panel panel-warning">
                     <% end %>
                         <div class="panel-heading">
-                            <h1 class="panel-title text-center"><%= @card.name %></h1>
+                            <h1 class="panel-title text-center"><i class="fa <%= @card.icon %>"></i> <%= @card.name %></h1>
                         </div>
                         <div class="panel-body">
                             <div class="row text-center">
-                                <h4>(<%= @card.align %>, 
-                                <% if @card.points > 0 %>
-                                +<%= @card.points %>
-                                <% else %>
-                                <%= @card.points %>
-                                <% end %>
-                                <% if @card.points == 1 || @card.points == -1 %>
-                                pt)
-                                <% else %>
-                                pts)
-                                <% end %>
-                                </h4>    
+                                
                             </div>
                             
                             <div class="row">
                                 <div class="col-sm-12 col-md-4 text-center subtitle">
-                                    <span class="fa-stack fa-5x">
-                                        <% if @card.align == 'Villager' %>
-                                            <i class="fa fa-square fa-stack-2x text-info"></i>  
-                                            <i class="fa <%= @card.image %> fa-stack-1x fa-lg"></i>
-                                        <% elsif @card.align == 'Werewolf'  %>
-                                            <i class="fa fa-square fa-stack-2x text-danger"></i> 
-                                            <i class="fa <%= @card.image %> fa-stack-1x "></i>
-                                        <% elsif @card.align == 'Misc' || @card.align == 'Item' %>
-                                            <i class="fa fa-square fa-stack-2x text-warning"></i> 
-                                            <i class="fa <%= @card.image %> fa-stack-1x "></i>
-                                        <% end %>
-                                    </span>
+                                    <!--<span class="fa-stack fa-5x">-->
+                                    <!--    <% if @card.align == 'Villager' %>-->
+                                    <!--        <i class="fa fa-square fa-stack-2x text-info"></i>  -->
+                                    <!--        <i class="fa <%= @card.icon %> fa-stack-1x fa-lg"></i>-->
+                                    <!--    <% elsif @card.align == 'Werewolf'  %>-->
+                                    <!--        <i class="fa fa-square fa-stack-2x text-danger"></i> -->
+                                    <!--        <i class="fa <%= @card.icon %> fa-stack-1x "></i>-->
+                                    <!--    <% elsif @card.align == 'Misc' || @card.align == 'Item' %>-->
+                                    <!--        <i class="fa fa-square fa-stack-2x text-warning"></i> -->
+                                    <!--        <i class="fa <%= @card.icon %> fa-stack-1x "></i>-->
+                                    <!--    <% end %>-->
+                                    <!--</span>-->
+                                    <img src="http://i.imgur.com/2ELbazA.png" alt=<%= @card.name %>>
+                                    
                                 </div>
                                 <div class="col-sm-12 col-md-8">
+                                    <h4 class="text-center">(<%= @card.align %>, 
+                                    <% if @card.points > 0 %>
+                                        +<%= @card.points %>
+                                    <% else %>
+                                        <%= @card.points %>
+                                    <% end %>
+                                    <% if @card.points == 1 || @card.points == -1 %>
+                                        pt)
+                                    <% else %>
+                                        pts)
+                                    <% end %>
+                                    </h4>    
                                     <% if @card.align == 'Villager' %>
                                     <%= @card.name %> is on the Villager team. They win when they and the other villagers have killed all players on the Werewolf team during the day or night.
                                     <% elsif @card.align == 'Werewolf'  %>
@@ -91,11 +94,10 @@
                                     <% end %>
                                 </div>
                             </div>
-                            <br>           
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-0 col-md-3 text-center"></div>
+                <div class="col-sm-0 col-md-2 text-center"></div>
             </div>
             
             <div class="row">

@@ -69,15 +69,15 @@
                         <% for card in @cards %>
                             <% for i in 1..card.max %>
                                 <% if card.align == "Villager" %>
-                                    <% hash = { "alert" => 'alert-info', "divId" => j, "help" => card.help, "id" => card.id, "name" => card.name, "align" => card.align, "image" => card.image, "points" => card.points, "max" => card.max, "desc" => card.desc} %>
+                                    <% hash = { "alert" => 'alert-info', "divId" => j, "help" => card.help, "id" => card.id, "name" => card.name, "align" => card.align, "icon" => card.icon, "points" => card.points, "max" => card.max, "desc" => card.desc} %>
                                     <% villagerRoles.push(hash) %>
                                 <% end %>
                                 <% if card.align == "Werewolf" %>
-                                    <% hash = { "alert" => 'alert-danger', "divId" => j, "help" => card.help, "id" => card.id, "name" => card.name, "align" => card.align, "image" => card.image, "points" => card.points, "max" => card.max, "desc" => card.desc} %>
+                                    <% hash = { "alert" => 'alert-danger', "divId" => j, "help" => card.help, "id" => card.id, "name" => card.name, "align" => card.align, "icon" => card.icon, "points" => card.points, "max" => card.max, "desc" => card.desc} %>
                                     <% werewolfRoles.push(hash) %>
                                 <% end %>
                                 <% if card.align == "Misc" %>
-                                    <% hash = { "alert" => 'alert-warning', "divId" => j, "help" => card.help, "id" => card.id, "name" => card.name, "align" => card.align, "image" => card.image, "points" => card.points, "max" => card.max, "desc" => card.desc} %>
+                                    <% hash = { "alert" => 'alert-warning', "divId" => j, "help" => card.help, "id" => card.id, "name" => card.name, "align" => card.align, "icon" => card.icon, "points" => card.points, "max" => card.max, "desc" => card.desc} %>
                                     <% miscRoles.push(hash) %>
                                 <% end %>
                                 <% j += 1 %>
@@ -99,11 +99,11 @@
                                             <% for villager in villagerRoles %>
                                             <div class="col-md-4 col-sm-4 col-xs-12">
                                                 <div id="role-<%= villager["divId"] %>" class="alert <%= villager["alert"] %> button-center" role="alert">
-                                                    <i class="fa <%= villager["image"] %> fa-lg"></i>
+                                                    <i class="fa <%= villager["icon"] %> fa-lg"></i>
                                                     <b><%= villager["name"]%></b><br>
                                                     (<%= villager["align"]%>, <%= villager["points"]%>)<br>
                                                     <button type="button" class="btn btn-link btn-xs" data-toggle="collapse" data-target="#desc-<%= villager["divId"] %>" aria-expanded="false" aria-controls="#desc-<%= villager["divId"] %>">Card Description</button>
-                                                    <button id="add-role-<%= villager["divId"] %>" help="<%= villager["help"] %>" desc="<%= villager["desc"] %>" points="<%= villager["points"] %>" roleId="<%= villager["id"] %>" name="<%= villager["name"] %>" image="<%= villager["image"] %>" align="<%= villager["align"] %>" type="button" class="addRoleCard btn btn-success btn-xs">Add to deck</button>
+                                                    <button id="add-role-<%= villager["divId"] %>" help="<%= villager["help"] %>" desc="<%= villager["desc"] %>" points="<%= villager["points"] %>" roleId="<%= villager["id"] %>" name="<%= villager["name"] %>" icon="<%= villager["icon"] %>" align="<%= villager["align"] %>" type="button" class="addRoleCard btn btn-success btn-xs">Add to deck</button>
                                                     <p id="desc-<%= villager["divId"] %>" class="panel-collapse collapse"><%= villager["desc"]%></p>
                                                 </div>
                                             </div>
@@ -113,11 +113,11 @@
                                             <% for werewolf in werewolfRoles %>
                                             <div class="col-md-4 col-sm-4 col-xs-12">
                                                 <div id="role-<%= werewolf["divId"] %>" class="alert <%= werewolf["alert"] %> button-center" role="alert">
-                                                    <i class="fa <%= werewolf["image"] %> fa-lg"></i>
+                                                    <i class="fa <%= werewolf["icon"] %> fa-lg"></i>
                                                     <b><%= werewolf["name"]%></b><br>
                                                     (<%= werewolf["align"]%>, <%= werewolf["points"]%>)<br>
                                                     <button type="button" class="btn btn-link btn-xs" data-toggle="collapse" data-target="#desc-<%= werewolf["divId"] %>" aria-expanded="false" aria-controls="#desc-<%= werewolf["divId"] %>">Card Description</button>
-                                                    <button id="add-role-<%= werewolf["divId"] %>" help="<%= werewolf["help"] %>" desc="<%= werewolf["desc"] %>" points="<%= werewolf["points"] %>" roleId="<%= werewolf["id"] %>" name="<%= werewolf["name"] %>" image="<%= werewolf["image"] %>" align="<%= werewolf["align"] %>" type="button" class="addRoleCard btn btn-success btn-xs">Add to deck</button>
+                                                    <button id="add-role-<%= werewolf["divId"] %>" help="<%= werewolf["help"] %>" desc="<%= werewolf["desc"] %>" points="<%= werewolf["points"] %>" roleId="<%= werewolf["id"] %>" name="<%= werewolf["name"] %>" icon="<%= werewolf["icon"] %>" align="<%= werewolf["align"] %>" type="button" class="addRoleCard btn btn-success btn-xs">Add to deck</button>
                                                     <p id="desc-<%= werewolf["divId"] %>" class="panel-collapse collapse"><%= werewolf["desc"]%></p>
                                                 </div>
                                             </div>
@@ -127,11 +127,11 @@
                                             <% for misc in miscRoles %>
                                             <div class="col-md-4 col-sm-4 col-xs-12">
                                                 <div id="role-<%= misc["divId"] %>" class="alert <%= misc["alert"] %> button-center" role="alert">
-                                                    <i class="fa <%= misc["image"] %> fa-lg"></i>
+                                                    <i class="fa <%= misc["icon"] %> fa-lg"></i>
                                                     <b><%= misc["name"]%></b><br>
                                                     (<%= misc["align"]%>, <%= misc["points"]%>)<br>
                                                     <button type="button" class="btn btn-link btn-xs" data-toggle="collapse" data-target="#desc-<%= misc["divId"] %>" aria-expanded="false" aria-controls="#desc-<%= misc["divId"] %>">Card Description</button>
-                                                    <button id="add-role-<%= misc["divId"] %>" help="<%= misc["help"] %>" desc="<%= misc["desc"] %>" points="<%= misc["points"] %>" roleId="<%= misc["id"] %>" name="<%= misc["name"] %>" image="<%= misc["image"] %>" align="<%= misc["align"] %>" type="button" class="addRoleCard btn btn-success btn-xs">Add to deck</button>
+                                                    <button id="add-role-<%= misc["divId"] %>" help="<%= misc["help"] %>" desc="<%= misc["desc"] %>" points="<%= misc["points"] %>" roleId="<%= misc["id"] %>" name="<%= misc["name"] %>" icon="<%= misc["icon"] %>" align="<%= misc["align"] %>" type="button" class="addRoleCard btn btn-success btn-xs">Add to deck</button>
                                                     <p id="desc-<%= misc["divId"] %>" class="panel-collapse collapse"><%= misc["desc"]%></p>
                                                 </div>
                                             </div>

@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20170110155540) do
     t.string   "action"
     t.text     "desc"
     t.boolean  "night"
-    t.string   "image"
+    t.string   "icon"
     t.integer  "points"
     t.integer  "max"
     t.string   "help"

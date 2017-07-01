@@ -5,11 +5,11 @@ one:
   align: MyString
   desc: MyText
   night: false
-  image: MyString
+  icon: MyString
 
 two:
   name: MyString
   align: MyString
   desc: MyText
   night: false
-  image: MyString
+  icon: MyString

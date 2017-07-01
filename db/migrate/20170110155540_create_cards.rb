@@ -6,7 +6,7 @@ class CreateCards < ActiveRecord::Migration
       t.string :action
       t.text :desc
       t.boolean :night
-      t.string :image
+      t.string :icon
       t.integer :points
       t.integer :max
       t.string :help
