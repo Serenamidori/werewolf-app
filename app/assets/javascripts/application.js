@@ -16,7 +16,8 @@
 //plugin bootstrap minus and plus
 //http://jsfiddle.net/laelitenetwork/puJ6G/
 
-
+var BASE_URL = "http://werewolfhelper.com";
+var TEST_URL = "https://ultimate-werewolf-helper-serenamidori.c9users.io";
 var ready;
 ready = function() {
 
@@ -71,11 +72,11 @@ ready = function() {
                 
                 // Display the selected role
                 if(!align.localeCompare("Villager")){
-                    document.getElementById('roleSection').innerHTML += '<div class="col-md-6 col-sm-6 remove-me"><div help="' + help + '" desc="' + desc + '" roleId="' + roleId + '" name="' + name + '" points="' + points + '" optionId="' + optionId + '" id="role' + currentRoles + '" class="alert alert-info " role="alert">' + currentRoles + '. <i class="fa ' + image + ' %> fa-lg"></i> ' + name + ' (' + points + ') ' + ' - <a href="https://ultimate-werewolf-helper-serenamidori.c9users.io/cards/' + roleId + '" target="_blank">Card Page</a><button type="button" class="btn btn-link btn-xs removeButton"><i class="fa fa-times"></i></button></div></div>'
+                    document.getElementById('roleSection').innerHTML += '<div class="col-md-6 col-sm-6 remove-me"><div help="' + help + '" desc="' + desc + '" roleId="' + roleId + '" name="' + name + '" points="' + points + '" optionId="' + optionId + '" id="role' + currentRoles + '" class="alert alert-info " role="alert">' + currentRoles + '. <i class="fa ' + image + ' %> fa-lg"></i> ' + name + ' (' + points + ') ' + ' - <a href="' + BASE_URL + '/cards/' + roleId + '" target="_blank">Card Page</a><button type="button" class="btn btn-link btn-xs removeButton"><i class="fa fa-times"></i></button></div></div>';
                 } else if (!align.localeCompare("Werewolf")){
-                    document.getElementById('roleSection').innerHTML += '<div class="col-md-6 col-sm-6 remove-me"><div help="' + help + '" desc="' + desc + '" roleId="' + roleId + '" name="' + name + '" points="' + points + '" optionId="' + optionId + '" id="role' + currentRoles + '" class="alert alert-danger " role="alert">' + currentRoles + '. <i class="fa ' + image + ' %> fa-lg"></i> ' + name + ' (' + points + ') ' + ' - <a href="https://ultimate-werewolf-helper-serenamidori.c9users.io/cards/' + roleId + '" target="_blank">Card Page</a><button type="button" class="btn btn-link btn-xs removeButton"><i class="fa fa-times"></i></button></div></div>'
+                    document.getElementById('roleSection').innerHTML += '<div class="col-md-6 col-sm-6 remove-me"><div help="' + help + '" desc="' + desc + '" roleId="' + roleId + '" name="' + name + '" points="' + points + '" optionId="' + optionId + '" id="role' + currentRoles + '" class="alert alert-danger " role="alert">' + currentRoles + '. <i class="fa ' + image + ' %> fa-lg"></i> ' + name + ' (' + points + ') ' + ' - <a href="' + BASE_URL + '/cards/' + roleId + '" target="_blank">Card Page</a><button type="button" class="btn btn-link btn-xs removeButton"><i class="fa fa-times"></i></button></div></div>';
                 } else {
-                    document.getElementById('roleSection').innerHTML += '<div class="col-md-6 col-sm-6 remove-me"><div help="' + help + '" desc="' + desc + '" roleId="' + roleId + '" name="' + name + '" points="' + points + '" optionId="' + optionId + '" id="role' + currentRoles + '" class="alert alert-warning " role="alert">' + currentRoles + '. <i class="fa ' + image + ' %> fa-lg"></i> ' + name + ' (' + points + ') ' + ' - <a href="https://ultimate-werewolf-helper-serenamidori.c9users.io/cards/' + roleId + '" target="_blank">Card Page</a><button type="button" class="btn btn-link btn-xs removeButton"><i class="fa fa-times"></i></button></div></div>'
+                    document.getElementById('roleSection').innerHTML += '<div class="col-md-6 col-sm-6 remove-me"><div help="' + help + '" desc="' + desc + '" roleId="' + roleId + '" name="' + name + '" points="' + points + '" optionId="' + optionId + '" id="role' + currentRoles + '" class="alert alert-warning " role="alert">' + currentRoles + '. <i class="fa ' + image + ' %> fa-lg"></i> ' + name + ' (' + points + ') ' + ' - <a href="' + BASE_URL + '/cards/' + roleId + '" target="_blank">Card Page</a><button type="button" class="btn btn-link btn-xs removeButton"><i class="fa fa-times"></i></button></div></div>';
                 }
                 
                 // Change the visual for point sum of selected roles
@@ -177,7 +178,7 @@ ready = function() {
                 if(document.getElementById(playerId).value == "") {
                     playerName = "Player #" + number;
                 }
-                document.getElementById('game-play-div').innerHTML += '<div id="rolePlayer' + i + '"><div class="alert alert-success" role="alert"></i> <h4>' + playerName + ' the ' + roleName + '</h4> <div class="input-group" id="copyPlayerRole' + i + '"><input class="form-control" id="copyRole' + i + '" value="' + playerName + ', you are a ' + roleName + ' - https://ultimate-werewolf-helper-serenamidori.c9users.io/cards/' + roleId + '" readonly ><span class="input-group-btn"><button class="btn btn-default copy-button" data-clipboard-target="#copyRole' + i + '"><i class="fa fa-clipboard"></i></button></span></div></div></div>';
+                document.getElementById('game-play-div').innerHTML += '<div id="rolePlayer' + i + '"><div class="alert alert-success" role="alert"></i> <h4>' + playerName + ' the ' + roleName + '</h4> <div class="input-group" id="copyPlayerRole' + i + '"><input class="form-control" id="copyRole' + i + '" value="' + playerName + ', you are a ' + roleName + ' - ' + BASE_URL + '/cards/' + roleId + '" readonly ><span class="input-group-btn"><button class="btn btn-default copy-button" data-clipboard-target="#copyRole' + i + '"><i class="fa fa-clipboard"></i></button></span></div></div></div>';
                 
                 var dupe = false;
                 for(j = 0; j < rolesUsed.length; j++){
