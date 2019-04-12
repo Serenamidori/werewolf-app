@@ -71,11 +71,11 @@ ready = function() {
                 
                 // Display the selected role
                 if(!align.localeCompare("Villager")){
-                    document.getElementById('roleSection').innerHTML += '<div class="col-md-6 col-sm-6 remove-me"><div help="' + help + '" desc="' + desc + '" roleId="' + roleId + '" name="' + name + '" points="' + points + '" optionId="' + optionId + '" id="role' + currentRoles + '" class="alert alert-info " role="alert">' + currentRoles + '. <i class="fa ' + image + ' %> fa-lg"></i> ' + name + ' (' + points + ') ' + ' - <a href="https://ultimate-werewolf-helper-serenamidori.c9users.io/cards/' + roleId + '" target="_blank">Card Page</a><button type="button" class="btn btn-link btn-xs removeButton"><i class="fa fa-times"></i></button></div></div>'
+                    document.getElementById('roleSection').innerHTML += '<div class="col-12 remove-me"><div help="' + help + '" desc="' + desc + '" roleId="' + roleId + '" name="' + name + '" points="' + points + '" optionId="' + optionId + '" id="role' + currentRoles + '">' + currentRoles + '. <a href="https://ultimate-werewolf-helper-serenamidori.c9users.io/cards/' + roleId + '" target="_blank"><i class="fa ' + image + ' %>"></i> ' + name + ' (' + points + ') </a><button type="button" class="btn btn-link btn-sm removeButton"><i class="fa fa-times"></i></button></div></div>'
                 } else if (!align.localeCompare("Werewolf")){
-                    document.getElementById('roleSection').innerHTML += '<div class="col-md-6 col-sm-6 remove-me"><div help="' + help + '" desc="' + desc + '" roleId="' + roleId + '" name="' + name + '" points="' + points + '" optionId="' + optionId + '" id="role' + currentRoles + '" class="alert alert-danger " role="alert">' + currentRoles + '. <i class="fa ' + image + ' %> fa-lg"></i> ' + name + ' (' + points + ') ' + ' - <a href="https://ultimate-werewolf-helper-serenamidori.c9users.io/cards/' + roleId + '" target="_blank">Card Page</a><button type="button" class="btn btn-link btn-xs removeButton"><i class="fa fa-times"></i></button></div></div>'
+                    document.getElementById('roleSection').innerHTML += '<div class="col-12 remove-me"><div help="' + help + '" desc="' + desc + '" roleId="' + roleId + '" name="' + name + '" points="' + points + '" optionId="' + optionId + '" id="role' + currentRoles + '">' + currentRoles + '. <a href="https://ultimate-werewolf-helper-serenamidori.c9users.io/cards/' + roleId + '" target="_blank"><i class="fa ' + image + ' %>"></i> ' + name + ' (' + points + ') </a><button type="button" class="btn btn-link btn-sm removeButton"><i class="fa fa-times"></i></button></div></div>'
                 } else {
-                    document.getElementById('roleSection').innerHTML += '<div class="col-md-6 col-sm-6 remove-me"><div help="' + help + '" desc="' + desc + '" roleId="' + roleId + '" name="' + name + '" points="' + points + '" optionId="' + optionId + '" id="role' + currentRoles + '" class="alert alert-warning " role="alert">' + currentRoles + '. <i class="fa ' + image + ' %> fa-lg"></i> ' + name + ' (' + points + ') ' + ' - <a href="https://ultimate-werewolf-helper-serenamidori.c9users.io/cards/' + roleId + '" target="_blank">Card Page</a><button type="button" class="btn btn-link btn-xs removeButton"><i class="fa fa-times"></i></button></div></div>'
+                    document.getElementById('roleSection').innerHTML += '<div class="col-12 remove-me"><div help="' + help + '" desc="' + desc + '" roleId="' + roleId + '" name="' + name + '" points="' + points + '" optionId="' + optionId + '" id="role' + currentRoles + '">' + currentRoles + '. <a href="https://ultimate-werewolf-helper-serenamidori.c9users.io/cards/' + roleId + '" target="_blank"><i class="fa ' + image + ' %>"></i> ' + name + ' (' + points + ') </a><button type="button" class="btn btn-link btn-sm removeButton"><i class="fa fa-times"></i></button></div></div>'
                 }
                 
                 // Change the visual for point sum of selected roles
@@ -84,7 +84,7 @@ ready = function() {
                 document.getElementById('pointTotal').innerHTML = pointSum;
                 
                 $(this).addClass("disabled");
-                $(this)[0].innerHTML = "Added to deck!";
+                $(this)[0].innerHTML = "Added";
 
                 checkButton();
             }
@@ -122,8 +122,8 @@ ready = function() {
             document.getElementById('pointTotal').innerHTML = pointSum;
             pointSumColor(pointSum);
             var optionId = $(this).closest("div").attr("optionId");
-            document.getElementById(optionId).classList = "addRoleCard btn btn-success btn-xs";
-            document.getElementById(optionId).innerHTML = "Add to deck";
+            document.getElementById(optionId).classList = "addRoleCard btn btn-link btn-sm float-right";
+            document.getElementById(optionId).innerHTML = "<span class='fas fa-plus'></span>";
             
             currentRoles -= 1;
             $(this).closest("div").parent().remove();
@@ -135,10 +135,6 @@ ready = function() {
          * Take in the roles selected and shuffles them, assigning them out to each named player on the page
          **/
         function shuffleAndAssign(){
-            // collapse other divs
-            document.getElementById('player-collapse').classList.remove("in");
-            document.getElementById('role-collapse').classList.remove("in");
- 
             var divs;
             $("#roleSection").each(function(){ 
                 divs = $(this).find('div').children('div');
@@ -177,7 +173,7 @@ ready = function() {
                 if(document.getElementById(playerId).value == "") {
                     playerName = "Player #" + number;
                 }
-                document.getElementById('game-play-div').innerHTML += '<div id="rolePlayer' + i + '"><div class="alert alert-success" role="alert"></i> <h4>' + playerName + ' the ' + roleName + '</h4> <div class="input-group" id="copyPlayerRole' + i + '"><input class="form-control" id="copyRole' + i + '" value="' + playerName + ', you are a ' + roleName + ' - https://ultimate-werewolf-helper-serenamidori.c9users.io/cards/' + roleId + '" readonly ><span class="input-group-btn"><button class="btn btn-default copy-button" data-clipboard-target="#copyRole' + i + '"><i class="fa fa-clipboard"></i></button></span></div></div></div>';
+                document.getElementById('game-play-div').innerHTML += '<div id="rolePlayer' + i + '"><div class="alert alert-success" role="alert"></i> <h4>' + playerName + ' the ' + roleName + '</h4> <div class="input-group" id="copyPlayerRole' + i + '"><input class="form-control" id="copyRole' + i + '" value="' + playerName + ', you are a ' + roleName + ' - https://werewolfhelper.com/cards/' + roleId + '" readonly ><span class="input-group-btn"><button class="btn btn-default copy-button" data-clipboard-target="#copyRole' + i + '"><i class="fa fa-clipboard"></i></button></span></div></div></div>';
                 
                 var dupe = false;
                 for(j = 0; j < rolesUsed.length; j++){
@@ -197,7 +193,8 @@ ready = function() {
             }
             
             // after shuffle is done, scroll to the new div
-            document.getElementById('shuffleCardsDiv').scrollIntoView();
+            // TODO: Fix this!
+            // document.getElementById('shuffleCardsDiv').scrollIntoView();
         }
         
          
@@ -227,7 +224,7 @@ ready = function() {
         $("#shuffle-btn").click(function() {
             // Disables everything else
             document.getElementById('shuffle-btn').classList.add("disabled");
-            document.getElementById('shuffle-btn').innerHTML = '<i class="fa fa-refresh fa-spin fa-2x fa-fw"></i>';
+            document.getElementById('shuffle-btn').innerHTML = '<i class="fas fa-sync-alt fa-spin fa-2x fa-fw"></i>';
             document.getElementById('rolesDiv').style.display = "none";
             document.getElementById('playersDiv').style.display = "none";
     

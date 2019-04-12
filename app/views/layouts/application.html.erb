@@ -5,10 +5,40 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <!--<meta name="apple-mobile-web-app-capable" content="yes">-->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <!-- application CSS -->
+  <link rel="stylesheet" href="app/asset/stylesheets/application.css">
+  <!-- application JS -->
+  <script type="text/javascript" src="app/assets/javascipts/application.js"></script>
+  <!-- font-awesome CSS -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.4.0/clipboard.min.js"></script>
 </head>
 <body>
-
+<nav class="navbar navbar-expand-sm navbar-dark" style="background-color: #c3073f;">
+  <!--Mobile View-->
+  <a class="navbar-brand d-block d-sm-none" href="/"><span class="fas fa-paw fa-2x"></span></a>
+	<a class="navbar-brand d-block d-sm-none" href="/play"><span class="fas fa-play-circle fa-lg"></span></a>
+	<a class="navbar-brand d-block d-sm-none" href="/rules"><span class="fas fa-book fa-lg"></span></a>
+	<a class="navbar-brand d-block d-sm-none" href="/cards"><span class="fas fa-address-card fa-lg"></span></a>
+  <!--Desktop View-->
+	<a class="navbar-brand d-none d-sm-block" href="/"><span class="fas fa-paw"></span> Werewolf Helper</a>
+	<div class="navbar-collapse">
+		<ul class="navbar-nav">
+			<a href="/play" class="nav-link d-none d-sm-block"><span class="fas fa-play-circle"></span> Play</a>
+			<a href="/rules" class="nav-link d-none d-sm-block"><span class="fas fa-book"></span> Rules</a>
+			<a href="/cards" class="nav-link d-none d-sm-block"><span class="fas fa-address-card"></span> Cards</a>
+		</ul>
+	</div>
+</nav>
 <%= yield %>
-
 </body>
 </html>

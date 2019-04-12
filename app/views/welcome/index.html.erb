@@ -1,25 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-        <title>Main Page</title>
-        <!-- application CSS -->
-        <link rel="stylesheet" href="app/asset/stylesheets/application.css">
-        <!-- font-awesome CSS -->
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-        <!-- Latest compiled and minified JavaScript -->
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    </head>
-    
     <body>
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 col-md-12 text-center title shadow">
-                    <h1>THE WEREWOLF HELPER</h1>
-                    <h5>Play online over Skype or Discord with your friends!</h5>
+                    <h1 class="d-none d-md-block">THE WEREWOLF HELPER</h1>
+                    <br class="d-block d-md-none">
+                    <h5>Play a game of Werewolf online with your friends!<br>
+                    Built for <span class="fab fa-skype"></span> and <span class="fab fa-discord"></span> calls</h5>
                 </div>
             </div>
             <div class="row">
@@ -27,34 +15,20 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-0 col-sm-3 col-md-3 text-center"></div>
-                <div class="col-xs-12 col-sm-2 col-md-2 text-center" style="padding:10px">
-                    <a class="btn btn-default btn-md btn-block" href="/rules" role="button">
-                        <i class="fa fa-book fa-3x fa-top"></i>
-                        <h2>Rules</h2>
+                <div class="col-md-12 text-center">
+                    <a class="btn btn-dark btn-lg" href="/play" role="button" style="color: #fff; background-color: #c3073f; border-color: #c3073f;">
+                        <i class="fas fa-play-circle fa-2x fa-top"></i>
+                        <h2>Start a Game</h2>
                     </a>
                 </div>
-                <div class="col-xs-12 col-sm-2 col-md-2 text-center" style="padding:10px">
-                    <a class="btn btn-default btn-md btn-block" href="/play" role="button">
-                        <i class="fa fa-play-circle fa-3x fa-top"></i>
-                        <h2>Play</h2>
-                    </a>
-                </div>
-                <div class="col-xs-12 col-sm-2 col-md-2 text-center" style="padding:10px">
-                    <a class="btn btn-default btn-md btn-block" href="/cards" role="button">
-                        <i class="fa fa-id-card-o fa-3x fa-top"></i>
-                        <h2>Cards</h2>
-                    </a>
-                </div>
-                <div class="col-xs-0 col-sm-3 col-md-3 text-center"></div>
             </div>
+            <br class="d-block d-sm-none">
             <div class="row">
                 <div class="col-sm-12 col-md-12 text-center title shadow">
                     <h6><a data-toggle="collapse" href="#credits" class="title shadow">Credits</a></h6>
                     <div id="credits" class="collapse">
-                        <h6>App created by Gabriela Gonzalez (<a href="https://twitter.com/serenamidori">@serenamidori</a>)</h6>
+                        <h6>App created by <a href="https://serenamidori.com">Gabriela Gonzalez</a></h6>
                         <h6>Based off the game created by Dmitry Davidoff in 1986</h6>
-                        <h6>Background texture from <a href="https://www.transparenttextures.com">transparenttextures.com</a></h6>
                     </div>
                     <h2><i class="fa fa-paw fa-lg fa-spin-hover"></i></h2>
                 </div>

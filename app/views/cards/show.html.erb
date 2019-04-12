@@ -1,47 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-        <title>Main Page</title>
-        <!-- application CSS -->
-        <link rel="stylesheet" href="app/asset/stylesheets/application.css">
-        <!-- font-awesome CSS -->
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-        <!-- Latest compiled and minified JavaScript -->
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    </head>
-    
     <body>
         <div class="container">
-            <div class="row">
-                <div class="col-sm-12 col-md-12 title">
-                    <a class="btn btn-default left-align" href="/" role="button">
-                        <i class="fa fa-home fa-2x"></i>
-                    </a>
-                    <a class="btn btn-default left-align" href="/cards" role="button">
-                        <i class="fa fa-id-card-o fa-2x"></i>
-                    </a>
-                </div>
-            </div><br><br>
-            <div class="row">
-                <div class="col-sm-0 col-md-3 text-center"></div>
-                <div class="col-sm-12 col-md-6">
-                    <% if @card.align == 'Villager' %>
-                    <div class="panel panel-info">
-                    <% elsif @card.align == 'Werewolf'  %>
-                    <div class="panel panel-danger">
-                    <% elsif @card.align == 'Misc' || @card.align == 'Item' %>
-                    <div class="panel panel-warning">
-                    <% end %>
-                        <div class="panel-heading">
-                            <h1 class="panel-title text-center"><%= @card.name %></h1>
+            <div class="row justify-content-center">
+                <div class="col-12 col-sm-8">
+                    <div class="card text-white bg-dark mb-3 mt-5">
+                          <div class="card-header">
+                            <h2 class="text-center"><%= @card.name %></h2>
                         </div>
-                        <div class="panel-body">
-                            <div class="row text-center">
-                                <h4>(<%= @card.align %>, 
+                        <div class="card-body">
+                            <div class="row justify-content-center">
+                                <h5>(<%= @card.align %>, 
                                 <% if @card.points > 0 %>
                                 +<%= @card.points %>
                                 <% else %>
@@ -52,21 +21,20 @@
                                 <% else %>
                                 pts)
                                 <% end %>
-                                </h4>    
+                                </h5>    
                             </div>
-                            
-                            <div class="row">
+                            <div class="row mt-2">
                                 <div class="col-sm-12 col-md-4 text-center subtitle">
                                     <span class="fa-stack fa-5x">
                                         <% if @card.align == 'Villager' %>
                                             <i class="fa fa-square fa-stack-2x text-info"></i>  
-                                            <i class="fa <%= @card.image %> fa-stack-1x fa-lg"></i>
+                                            <i class="<%= @card.image %> fa-stack-1x fa-lg"></i>
                                         <% elsif @card.align == 'Werewolf'  %>
                                             <i class="fa fa-square fa-stack-2x text-danger"></i> 
-                                            <i class="fa <%= @card.image %> fa-stack-1x "></i>
+                                            <i class="<%= @card.image %> fa-stack-1x "></i>
                                         <% elsif @card.align == 'Misc' || @card.align == 'Item' %>
                                             <i class="fa fa-square fa-stack-2x text-warning"></i> 
-                                            <i class="fa <%= @card.image %> fa-stack-1x "></i>
+                                            <i class="<%= @card.image %> fa-stack-1x "></i>
                                         <% end %>
                                     </span>
                                 </div>
@@ -79,9 +47,9 @@
                                     <%= @card.name %> is on the Miscellaneous team. They can win under specific circumstances, and don't necessarily have to help the Villager or Werewolf team to win.
                                     <% end %>
                                     <br><br>
-                                    <h4>Role:</h4> <%= @card.desc %>
+                                    <h5><b>Role:</b></h5> <%= @card.desc %>
                                     <br><br>
-                                    <h4>Action Rules:</h4> 
+                                    <h5><b>Action Rules:</b></h5> 
                                     <% if @card.action == 'once' %>
                                     You can only perform your action once per game.
                                     <% elsif @card.action == 'none' %>
@@ -91,16 +59,8 @@
                                     <% end %>
                                 </div>
                             </div>
-                            <br>           
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-0 col-md-3 text-center"></div>
-            </div>
-            
-            <div class="row">
-                <div class="col-sm-12 col-md-12 text-center title shadow">
-                    <h2><i class="fa fa-paw fa-lg fa-spin-hover"></i></h2>
                 </div>
             </div>
         </div>
