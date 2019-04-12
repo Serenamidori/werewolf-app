@@ -13,6 +13,8 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
+# Using Puma in Procfile
+gem 'puma'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
